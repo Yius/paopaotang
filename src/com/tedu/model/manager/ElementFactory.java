@@ -1,5 +1,6 @@
 package com.tedu.model.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import com.tedu.model.load.ElementLoad;
 import com.tedu.model.vo.Enemy;
 import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
+import com.tedu.model.vo.Tree;
 
 /**
  * 任务：依据参数不同，自动读取 资源，填充 vo对象数据，存储到 元素管理器
@@ -14,20 +16,35 @@ import com.tedu.model.vo.SuperElement;
  */
 public class ElementFactory {
 	
-	public static SuperElement elementFactory(String name){
+	/*
+	 * 返回类型改成了List，方便一次读完
+	 */
+	public static List<SuperElement> elementFactory(String name){
 		Map<String, List<String>> map=
 			ElementLoad.getElementLoad().getPlaymap();
 		List<String> list1=ElementLoad.getElementLoad().getGameList();
+		List<SuperElement> result = new ArrayList<>();
+		int[][] floor = MapManager.getMapManager().getFloor();
 		switch(name){
 		case "onePlayer":
 			List<String> list=map.get(name);
 			String s=list.get(0);//playerA,playFire,150,300,40,40
-			return Player.createPlayer(s);
+			result.add(Player.createPlayer(s));
+			return result;
 		case "enemy":
 			String str=list1.get(list1.size()-1);
-			return Enemy.createEnemey(str);
+			result.add(Enemy.createEnemey(str));
+			return result;
+		case "tree":
+			for(int i=0;i<floor.length;++i) {
+				for(int j=0;j<floor[0].length;++j) {
+					if(floor[i][j]==5) {
+						result.add(Tree.createTree(i,j));
+					}
+				}
+			}
+			return result;
 		}
-		
 		return null;
 	}
 	

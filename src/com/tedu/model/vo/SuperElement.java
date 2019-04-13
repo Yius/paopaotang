@@ -12,14 +12,17 @@ import java.awt.Rectangle;
 
 
 public abstract class SuperElement {
+	private int row;//角色所在地图二维数组的行坐标
+	private int col;//角色所在地图二维数组的列坐标
 	private int x;//画图片的左上角x
 	private int y;//画图片的左上角y
 	private int w;
 	private int h;
 	private boolean visible;//默认为 true 代表 存活
-	private boolean canDestroy;
-	private boolean canBlock;
-	private boolean aggressive;
+	private boolean canDestroy;//能够被摧毁吗
+	private boolean canBlock;//能够挡住爆炸的水泡吗
+	private boolean aggressive;//能够攻击吗（只有爆炸的水泡会为true）
+	private boolean canPass;//能够穿透吗
 /*
  * 	jvm给每个类都 会默认增加一个 默认无参数的构造方法
  *  但是，如果我们手动写啦一个构造方法（无论是什么构造（有参数，无参数））jvm都不会再添加 默认构造
@@ -44,7 +47,7 @@ public abstract class SuperElement {
 	public boolean gamePK(SuperElement se){
 		Rectangle r1=new Rectangle(x, y, w, h);
 		Rectangle r2=new Rectangle(se.x, se.y, se.w, se.h);
-		return r1.intersects(r2);//如果举行有交集，返回 true
+		return r1.intersects(r2);//如果矩形有交集，返回 true
 	}
 	
 	public abstract void showElement(Graphics g);
@@ -112,6 +115,30 @@ public abstract class SuperElement {
 
 	public void setAggressive(boolean aggressive) {
 		this.aggressive = aggressive;
+	}
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
+	}
+
+	public boolean isCanPass() {
+		return canPass;
+	}
+
+	public void setCanPass(boolean canPass) {
+		this.canPass = canPass;
 	}
 	
 	

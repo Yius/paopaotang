@@ -16,6 +16,7 @@ public class Player extends SuperElement{
 	private int hp;//血量
 	private int num;//分数
 	private ImageIcon img;
+//	private StopMove stopMove;
 //	当前玩家名称。。。。
 	
 	private MoveType moveType;//0 1 2 3
@@ -32,11 +33,13 @@ public class Player extends SuperElement{
 		num=0;
 		moveType=MoveType.stop;
 		pk=false;
+		setCanPass(false);
+//		stopMove=StopMove.None;原用于判断碰撞，现在感觉没用，先删去
 	}
 	
 	//可以直接调用这个方法，用来得到一个玩家对象  str里面包含的就是玩家对象的信息
 	public static Player createPlayer(String str){
-//		playerA,playFire,150,300,40,40
+//		playerA,playFire,150,300,32,32
 
 		String [] arr=str.split(",");
 		int x=Integer.parseInt(arr[2]);
@@ -58,15 +61,17 @@ public class Player extends SuperElement{
 				50*(moveX+1)+26, (moveY)*100+100,    //图片右下角坐标  120,60
 				null);
 	}
+	
 	public void move(){
 		switch(moveType){
-		case top: setY(getY()-5);moveY=3;break;
-		case left: setX(getX()-5);moveY=1;break;
+		case top:setY(getY()-5);moveY=3;break;
+		case left:setX(getX()-5);moveY=1;break;
 		case right:setX(getX()+5);moveY=2;break;
 		case down:setY(getY()+5);moveY=0;break;
 		case stop:moveX=-2;break;
 		}
 	}
+	
 //	重写父类的模板
 	public void update(){
 		super.update();//如果没有这句话，就是 重新制定新模板
@@ -74,7 +79,7 @@ public class Player extends SuperElement{
 		updateImage();
 	}
 	public void updateImage(){
-		moveX=moveX%4;
+		moveX=moveX%6;
 		moveX+=2;
 	}
 	
@@ -124,4 +129,11 @@ public class Player extends SuperElement{
 		// TODO Auto-generated method stub
 		
 	}
+
+	/*
+	public void setStopMove(StopMove stopMove) {
+		this.stopMove = stopMove;
+	}*/
+	
+	
 }

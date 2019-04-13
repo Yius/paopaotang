@@ -24,11 +24,12 @@ public class ElementManager {
 //	初始化
 	protected void init(){
 		map=new HashMap<>();
-		List<SuperElement> list=new ArrayList<>();
-		map.put("play", list);
-		List<SuperElement> listA=new ArrayList<>();
-		map.put("enemyList", listA);
+		map.put("play", new ArrayList<>());
+		map.put("enemyList", new ArrayList<>());
 		map.put("playFire", new ArrayList<>());
+		map.put("tree", new ArrayList<>());
+		map.put("apricot", new ArrayList<>());
+		map.put("box",new ArrayList<>());
 	}
 //	得到一个完整的 map集合
 	public Map<String, List<SuperElement>> getMap() {
@@ -70,8 +71,21 @@ public class ElementManager {
 		ElementLoad.getElementLoad().readFloorPro();
 //		开放一个 状态，界面可以做  前夕啦（前面的过度信息）
 //		......
-		map.get("play").add(ElementFactory.elementFactory("onePlayer"));
-		
+		/*
+		 * 这里只是示例，可以有更多的东西加入，而且可以考虑用配置化的方法去添加
+		 */
+		List<SuperElement> playerList = ElementFactory.elementFactory("onePlayer");
+		List<SuperElement> treeList = ElementFactory.elementFactory("tree");
+		List<SuperElement> boxList = ElementFactory.elementFactory("box");
+		if(playerList!=null) {
+			map.get("play").addAll(playerList);
+		}
+		if(treeList!=null) {
+			map.get("tree").addAll(treeList);
+		}
+		if(boxList!=null) {
+			map.get("box").addAll(boxList);
+		}
 	}
 //	控制流程   int time游戏进行时间
 	public void linkGame(int time) {
@@ -84,7 +98,7 @@ public class ElementManager {
 		String[] arr=s.split(",");
 		int runTime=Integer.parseInt(arr[arr.length-1]);
 		if(time>runTime){
-			map.get("enemyList").add(ElementFactory.elementFactory("enemy"));
+			map.get("enemyList").addAll(ElementFactory.elementFactory("enemy"));
 			list.remove(list.size()-1);
 		}
 	}

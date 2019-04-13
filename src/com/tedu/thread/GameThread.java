@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.tedu.model.manager.ElementManager;
 import com.tedu.model.vo.Enemy;
+import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
 
 //java是单继承，多实现。通过 内部类的方式，弥补单继承的缺陷
@@ -64,10 +65,10 @@ public class GameThread extends Thread{
 	}
 	private void PK() {
 		List<SuperElement> list1=
-				ElementManager.getManager().getElementList("playFire");
+				ElementManager.getManager().getElementList("play");
 		List<SuperElement> list2=
-				ElementManager.getManager().getElementList("enemyList");
-		listPK(list1,list2);
+				ElementManager.getManager().getElementList("tree");
+		pkWithTree(list1,list2);
 //		可以举行比较
 	}
 //	部分的代码 是可以重复使用的。
@@ -78,6 +79,27 @@ public class GameThread extends Thread{
 				if(list1.get(i).gamePK(list2.get(j))){
 					list2.get(j).setVisible(false);
 					list1.get(i).setVisible(false);
+				}
+			}
+		}
+	}
+	
+	/*
+	 * 这是一个示例方法，用来判断人物和树会不会碰撞，实际上可以推而广之，把第二个参数换成任意一种不可穿透的物品的list
+	 * 
+	 */
+	private void pkWithTree(List<SuperElement> characters,List<SuperElement> tree) {
+		for(int i=0;i<characters.size();i++){
+			for(int j=0;j<tree.size();j++){
+				Player p = (Player)(characters.get(i));
+				if(characters.get(i).gamePK(tree.get(j))){
+					switch(p.getMoveType()) {
+//					自动化不该改值，但是没想好怎么改
+					case top:p.setY(p.getY()+5);break;
+					case down:p.setY(p.getY()-5);break;
+					case left:p.setX(p.getX()+5);break;
+					case right:p.setX(p.getX()-5);break;
+					}
 				}
 			}
 		}

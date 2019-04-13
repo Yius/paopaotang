@@ -1,5 +1,6 @@
 package com.tedu.model.manager;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Map;
 import java.util.Random;
@@ -50,43 +51,45 @@ public class MapManager {
 	}
 
 
-/**
+/*
  * 
  * 画地板用的，大于等于三百为箱子种类，case 3原用于箱子，发现不适合就删去了
+ * 因为画图需要，所以画的时候都是画了32*64像素范
  */
 	public void drawFloor(Graphics g) {
 		int[][] floor = mapManager.getFloor();
 		Map<String, ImageIcon> map = ElementLoad.getElementLoad().getMap();
 		Random r = new Random();
+		/*
+		 * 因为加载和获取资源都是线程中进行的，先后无法判定，故刚开始的几次可能出现空指针异常，
+		 * 不过问题不大，因为此方法是不断调用的，过了前几次后就不会有异常了
+		 * 
+		 */
 		try {
 			for(int i=0;i<floor.length;++i) {
 				for(int j=0;j<floor[0].length;++j) {
 					
+					//每格先铺一次路
 					g.drawImage(map.get("things").getImage(),
-							0+j*32, (i)*32, 
+							0+j*32, (i-1)*32, 
 							32+j*32, 32+i*32,
-							0, 32, 
+							0, 0, 
 							32, 64,
 							null);
 					
 					if(floor[i][j]>=300) {
 						int num = floor[i][j]-300;
-						int quotient = num/4;
-						int remainder = num%4;
-						if(remainder == 0) {
-							remainder = 4;
-							--quotient;
-						}
 						g.drawImage(map.get("box").getImage(),
-								0+j*32, (i)*32,
+								0+j*32, (i-1)*32,
 								32+j*32, 32+i*32,
-								(remainder-1)*32, (quotient)*32, 
-								remainder*32, (quotient+1)*32,
+								(num-1)*32, 0, 
+								(num)*32, 64,
 								null);
 						continue;
 					}
 					
 					switch(floor[i][j]) {
+					//case 0就是画路，所以画一次就好
 					case 0:
 						break;
 					case 1:
