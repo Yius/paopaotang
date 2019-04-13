@@ -1,0 +1,9 @@
+bg=img/bg/1.png
+playerA=img/character/1.png
+playerB=img/play/3.png
+enemyA=img/enemy/1.png
+enemyB=img/enemy/2.png
+enemyC=img/enemy/3.png
+playFire=img/fire/1.png
+things=img/map/things.png
+box=img/map/box.png

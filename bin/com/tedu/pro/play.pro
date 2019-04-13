@@ -1,0 +1,1 @@
+onePlayer=playerA,playFire,150,300,40,40
