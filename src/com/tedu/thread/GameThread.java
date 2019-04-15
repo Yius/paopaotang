@@ -14,6 +14,7 @@ import com.tedu.model.vo.SuperElement;
 public class GameThread extends Thread{
 //	计时数据
 	private int time;
+	private int time1=0;
 //	代码的熟练 和 思想的进步 都是通过很多的项目锻炼
 //	如果项目不多，请 重构老项目
 	public void run(){
@@ -68,31 +69,44 @@ public class GameThread extends Thread{
 				ElementManager.getManager().getElementList("play");
 		List<SuperElement> list2=
 				ElementManager.getManager().getElementList("tree");
-		pkWithTree(list1,list2);
+		List<SuperElement> list3=
+				ElementManager.getManager().getElementList("house");
+		List<SuperElement> list4=
+				ElementManager.getManager().getElementList("box");
+		List<SuperElement> list5=
+				ElementManager.getManager().getElementList("playFire");
+		pkWithRoadBlock(list1,list2);//路障
+		pkWithRoadBlock(list1,list3);
+		pkWithRoadBlock(list1,list4);
+		listPK(list5,list1);
+		listPK(list5,list4);
 //		可以举行比较
 	}
+	
 //	部分的代码 是可以重复使用的。
-	public void listPK(List<SuperElement> list1,
+	public void listPK(List<SuperElement> list1,//判断泡泡是否炸到人或箱子
 			List<SuperElement> list2){
 		for(int i=0;i<list1.size();i++){
 			for(int j=0;j<list2.size();j++){
-				if(list1.get(i).gamePK(list2.get(j))){
-					list2.get(j).setVisible(false);
-					list1.get(i).setVisible(false);
+				if(list1.get(i).gamePK(list2.get(j))&&list1.get(i).isBoomed()){
+					System.out.println(list2.get(j));
+						list2.get(j).setVisible(false);
+						//list1.get(i).setVisible(false);
 				}
 			}
 		}
 	}
 	
+	
 	/*
 	 * 这是一个示例方法，用来判断人物和树会不会碰撞，实际上可以推而广之，把第二个参数换成任意一种不可穿透的物品的list
 	 * 
 	 */
-	private void pkWithTree(List<SuperElement> characters,List<SuperElement> tree) {
+	private void pkWithRoadBlock(List<SuperElement> characters,List<SuperElement> tree) {//判断路障是否阻碍移动
 		for(int i=0;i<characters.size();i++){
 			for(int j=0;j<tree.size();j++){
 				Player p = (Player)(characters.get(i));
-				if(characters.get(i).gamePK(tree.get(j))){
+				if(characters.get(i).gameCrash(tree.get(j))){
 					switch(p.getMoveType()) {
 //					自动化不该改值，但是没想好怎么改
 					case top:p.setY(p.getY()+5);break;
@@ -104,7 +118,6 @@ public class GameThread extends Thread{
 			}
 		}
 	}
-	
 	
 	
 	//游戏的流程控制 

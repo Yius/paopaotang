@@ -11,19 +11,25 @@ import java.awt.Rectangle;
 
 
 
-public abstract class SuperElement {
+public abstract class SuperElement{
 	private int row;//角色所在地图二维数组的行坐标
 	private int col;//角色所在地图二维数组的列坐标
 	private int x;//画图片的左上角x
 	private int y;//画图片的左上角y
 	private int w;
 	private int h;
+	private int time;
+	private int t;
 	private boolean visible;//默认为 true 代表 存活
 	private boolean canDestroy;//能够被摧毁吗
 	private boolean canBlock;//能够挡住爆炸的水泡吗
 	private boolean aggressive;//能够攻击吗（只有爆炸的水泡会为true）
 	private boolean canPass;//能够穿透吗
-/*
+	private boolean boomed;//水泡了吗爆炸
+	private boolean died;//人物死亡了吗
+	
+   
+	/*
  * 	jvm给每个类都 会默认增加一个 默认无参数的构造方法
  *  但是，如果我们手动写啦一个构造方法（无论是什么构造（有参数，无参数））jvm都不会再添加 默认构造
  *  一般作为父类，如果有其他构造，最好写一个无参数构造，防止继承报错。
@@ -44,7 +50,25 @@ public abstract class SuperElement {
 		destroy();
 	}
 //	你是选择  this pk 参数    还是  参数PK参数
-	public boolean gamePK(SuperElement se){
+	public boolean gamePK(SuperElement se) {//泡泡炸人
+		if(isVisible())
+		{
+			if(Math.abs(getX()-se.getX())<=56&&Math.abs(getY()-se.getY())<=20)
+			{
+				return true;
+			}
+			else if(Math.abs(getY()-se.getY())<=56&&Math.abs(getX()-se.getX())<=20)
+		  	{
+				return true;
+		  	}
+		}
+		return false;
+//		Rectangle r1=new Rectangle(x, y, w, h);
+//		Rectangle r2=new Rectangle(se.x, se.y, se.w, se.h);
+//		return r1.intersects(r2);//如果矩形有交集，返回 true
+	}
+	
+	public boolean gameCrash(SuperElement se){//人物和物体碰撞
 		Rectangle r1=new Rectangle(x, y, w, h);
 		Rectangle r2=new Rectangle(se.x, se.y, se.w, se.h);
 		return r1.intersects(r2);//如果矩形有交集，返回 true
@@ -141,5 +165,31 @@ public abstract class SuperElement {
 		this.canPass = canPass;
 	}
 	
+	 public boolean isBoomed() {
+			return boomed;
+		}
+
+		public void setBoomed(boolean boomed) {
+			this.boomed = boomed;
+		}
+		
+
+		public boolean isDied() {
+			return died;
+		}
+
+		public void setDied(boolean died) {
+			this.died = died;
+		}
+
+		public int getTime() {
+			// TODO Auto-generated method stub
+			return time;
+		}
+
+		public void setTime(int time) {
+			this.time = time;
+		}
+
 	
 }

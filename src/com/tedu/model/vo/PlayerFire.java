@@ -2,11 +2,17 @@ package com.tedu.model.vo;
 
 import java.awt.Graphics;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+import com.tedu.model.load.ElementLoad;
+import com.tedu.model.manager.ElementManager;
+
 public class PlayerFire extends SuperElement{
 	private ImageIcon img;
+	private int movex;
+	private int time=0;
 	
 	public PlayerFire() {
 		super();
@@ -19,21 +25,27 @@ public class PlayerFire extends SuperElement{
 	}
 
 	public static PlayerFire createPlayerFire(int x,int y,String str){
-		ImageIcon img=new ImageIcon("img/fire/12.png");
-		return new PlayerFire(x,y,30,30,img);
+		String []arr=str.split(",");
+		ImageIcon img=
+				ElementLoad.getElementLoad().getMap().get(arr[1]);
+		System.out.println("ccc:"+img);
+		return new PlayerFire(x,y,32,32,img);
 	}
 	@Override
 	public void showElement(Graphics g) {
-		g.drawImage(img.getImage(), getX(), getY(), 
-				getW(), getH(), null);
+		g.drawImage(img.getImage(), 
+				getX(), getY(),                  //屏幕左上角坐标
+				getX()+getW(), getY()+getH(),    //屏幕右下角坐标
+					32*movex,8 ,    //图片左上角坐标        60 ,0
+					32*(movex+1),45,    //图片右下角坐标  120,60
+//					moveX, 0,    //图片左上角坐标        60 ,0
+//					moveX+60, 60,	
+					null);
 	}
 	@Override
 	public void move() {
-		setY(getY()-10);
-//		超过边界的 是不是要 销毁
-		if(getY()<0){
-			setVisible(false);
-		}
+		movex=movex%3;
+		movex++;
 	}
 	public ImageIcon getImg() {
 		return img;
@@ -45,9 +57,20 @@ public class PlayerFire extends SuperElement{
 
 	@Override
 	public void destroy() {
-//		销毁的时候，需要创建 爆炸对象 添加入到 爆炸的list集合中
-		if(!isVisible()) {
-			//TODO
-		}	
-	}
+		setTime(time++);
+		setBoomed(false);
+		if(getTime()==20)
+			setBoomed(true);
+		if(getTime()==21) {
+	      List<SuperElement> list1=
+			ElementManager.getManager().getElementList("boom");
+	      Map<String, List<String>> map=
+			ElementLoad.getElementLoad().getPlaymap();
+	      List<String> list=map.get("onePlayer");
+	      String s=list.get(0);
+	      list1.add(Boom.createBoom(getX(), getY(), s));
+	      setVisible(false);
+		}
+}
+
 }

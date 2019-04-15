@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 
@@ -42,10 +43,10 @@ public class Player extends SuperElement{
 //		playerA,playFire,150,300,32,32
 
 		String [] arr=str.split(",");
-		int x=Integer.parseInt(arr[2]);
-		int y=Integer.parseInt(arr[3]);
-		int w=Integer.parseInt(arr[4]);
-		int h=Integer.parseInt(arr[5]);
+		int x=Integer.parseInt(arr[3]);
+		int y=Integer.parseInt(arr[4]);
+		int w=Integer.parseInt(arr[5]);
+		int h=Integer.parseInt(arr[6]);
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get(arr[0]);
 		
@@ -54,6 +55,7 @@ public class Player extends SuperElement{
 	
 	@Override
 	public void showElement(Graphics g) {
+		g.drawRect(getX(), getY(), getW(), getH());
 		g.drawImage(img.getImage(), 
 			getX(), getY(),                  //屏幕左上角坐标
 			getX()+getW(), getY()+getH(),    //屏幕右下角坐标
@@ -87,10 +89,15 @@ public class Player extends SuperElement{
 		if(!pk){//如果PK是false就不需要 添加子弹
 			return;
 		}
-		List<SuperElement> list=
+		List<SuperElement> list1=
 				ElementManager.getManager().getElementList("playFire");
-		list.add(PlayerFire.createPlayerFire(getX(), getY(), ""));
-		pk=false;//每按一次 只能发射一颗子弹
+		Map<String, List<String>> map=
+				ElementLoad.getElementLoad().getPlaymap();
+		List<String> list=map.get("onePlayer");
+		String s=list.get(0);
+		list1.add(PlayerFire.createPlayerFire(getX(), getY(), s));
+		setBoomed(false);
+		pk=false;//每按一次 只能发射一颗子弹	
 	}
 	
 	
@@ -127,8 +134,14 @@ public class Player extends SuperElement{
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+		if(isVisible()){
+			return ;
+		}
+		List<SuperElement> list=
+					ElementManager.getManager().getElementList("died");
+		list.add(Died.createDied(getX(), getY(), ""));
 	}
+	
 
 	/*
 	public void setStopMove(StopMove stopMove) {

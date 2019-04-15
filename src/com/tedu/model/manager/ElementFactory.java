@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.tedu.model.load.ElementLoad;
+import com.tedu.model.vo.Box;
 import com.tedu.model.vo.Enemy;
+import com.tedu.model.vo.House;
 import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
 import com.tedu.model.vo.Tree;
@@ -40,6 +42,24 @@ public class ElementFactory {
 				for(int j=0;j<floor[0].length;++j) {
 					if(floor[i][j]==5) {
 						result.add(Tree.createTree(i,j));
+					}
+				}
+			}
+			return result;
+		case "house":
+			for(int i=0;i<floor.length;++i) {
+				for(int j=0;j<floor[0].length;++j) {
+					if(floor[i][j]==1||floor[i][j]==2) {
+						result.add(House.createHouse(i,j));
+					}
+				}
+			}
+			return result;
+		case "box":
+			for(int i=0;i<floor.length;++i) {
+				for(int j=0;j<floor[0].length;++j) {
+					if(floor[i][j]>300) {
+						result.add(Box.createBox(i,j));
 					}
 				}
 			}

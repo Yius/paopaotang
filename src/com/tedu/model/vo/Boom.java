@@ -9,8 +9,8 @@ import com.tedu.model.manager.ElementManager;
 
 public class Boom extends SuperElement{
 	private ImageIcon img;
-	private int movex;
 	private int movey;
+	private int time=0;
 	
 	public Boom(){
 		super();
@@ -32,30 +32,39 @@ public class Boom extends SuperElement{
 	@Override
 	public void showElement(Graphics g) {
 		// TODO Auto-generated method stub
+		g.drawRect(getX(), getY(), getW(), getH());
 		g.drawImage(img.getImage(),          //中心水花
 				getX(), getY(),             //屏幕左上角坐标
 				getX()+getW(),getY()+getH(),//屏幕右下角坐标
 				0,32*(movey+0),                        //图片左上角坐标
 				32,32*(movey+1),                     //图片右下角坐标
 				null);
+		
+		g.drawRect(getX()+25, getY(), getW(), getH());
 		g.drawImage(img.getImage(),            //右侧水柱
 				getX()+25, getY(),             
 				getX()+getW()+32,getY()+getH(),
 				32,32*(movey+1),                        
 				64,32*(movey+2),                     
 				null);
+		
+		g.drawRect(getX()-27, getY(), getW(), getH());
 		g.drawImage(img.getImage(),            //左侧水柱
 				getX()-27, getY(),             
 				getX()+getW()-20,getY()+getH(),
 				32,32*(movey+2),                        
 				64,32*(movey+3),                     
 				null);
+		
+		g.drawRect(getX(), getY()-25, getW(), getH());
 		g.drawImage(img.getImage(),            //上侧水柱
 				getX(), getY()-25,             
 				getX()+getW(),getY()+getH()-25,
 				32,32*(movey+3),                        
 				64,32*(movey+4),                     
 				null);
+		
+		g.drawRect(getX(), getY()+25, getW(), getH());
 		g.drawImage(img.getImage(),            //下侧水柱
 				getX(), getY()+25,             
 				getX()+getW(),getY()+getH()+25,
@@ -73,6 +82,9 @@ public class Boom extends SuperElement{
 	
 	@Override
 	public void destroy() {
-		//TODO
-	}	
+		setTime(time++);
+		if(getTime()==8) {
+			setVisible(false);
+		}
+	}
 }

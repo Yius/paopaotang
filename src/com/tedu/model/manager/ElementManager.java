@@ -30,6 +30,9 @@ public class ElementManager {
 		map.put("tree", new ArrayList<>());
 		map.put("apricot", new ArrayList<>());
 		map.put("box",new ArrayList<>());
+		map.put("house",new ArrayList<>());
+		map.put("boom", new ArrayList<>());
+		map.put("died", new ArrayList<>());
 	}
 //	得到一个完整的 map集合
 	public Map<String, List<SuperElement>> getMap() {
@@ -77,6 +80,7 @@ public class ElementManager {
 		List<SuperElement> playerList = ElementFactory.elementFactory("onePlayer");
 		List<SuperElement> treeList = ElementFactory.elementFactory("tree");
 		List<SuperElement> boxList = ElementFactory.elementFactory("box");
+		List<SuperElement> houseList = ElementFactory.elementFactory("house");
 		if(playerList!=null) {
 			map.get("play").addAll(playerList);
 		}
@@ -85,6 +89,9 @@ public class ElementManager {
 		}
 		if(boxList!=null) {
 			map.get("box").addAll(boxList);
+		}
+		if(houseList!=null) {
+			map.get("house").addAll(houseList);
 		}
 	}
 //	控制流程   int time游戏进行时间
