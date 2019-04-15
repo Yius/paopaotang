@@ -16,11 +16,7 @@ public class Box extends SuperElement{
 	}
 	
 	public static Box createBox(int row,int col){
-//		playerA,playFire,150,300,40,40
-
-//		String [] arr=str.split(",");
-//		int row=Integer.parseInt(arr[0]);
-//		int col=Integer.parseInt(arr[1]);
+		
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get("box");//后期可以用配置文件换掉
 		//为了使上走更加逼真，此处高减少了一点

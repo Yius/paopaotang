@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.tedu.model.load.ElementLoad;
 import com.tedu.model.vo.Box;
-import com.tedu.model.vo.Enemy;
 import com.tedu.model.vo.House;
 import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
@@ -32,10 +31,6 @@ public class ElementFactory {
 			List<String> list=map.get(name);
 			String s=list.get(0);//playerA,playFire,150,300,40,40
 			result.add(Player.createPlayer(s));
-			return result;
-		case "enemy":
-			String str=list1.get(list1.size()-1);
-			result.add(Enemy.createEnemey(str));
 			return result;
 		case "tree":
 			for(int i=0;i<floor.length;++i) {

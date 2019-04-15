@@ -20,7 +20,6 @@ public class Died extends SuperElement{
 	
 	public static Died createDied(int x,int y,String str){
 		ImageIcon img=new ImageIcon("img/character/died.png");
-		System.out.println("ccc:"+img);
 		return new Died(x,y,32,32,img);
 	}
 

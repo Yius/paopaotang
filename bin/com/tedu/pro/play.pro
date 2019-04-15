@@ -1,1 +1,0 @@
-onePlayer=playerA,playFire,boom,150,350,33,33

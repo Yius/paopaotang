@@ -25,7 +25,6 @@ public class Boom extends SuperElement{
 		String []arr=str.split(",");
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get(arr[2]);
-		System.out.println("xxx:"+img);
 		return new Boom(x,y,30,30,img);	
 	}
 	
@@ -87,4 +86,21 @@ public class Boom extends SuperElement{
 			setVisible(false);
 		}
 	}
+	
+	//≈›≈›’®»À
+	public boolean gamePK(SuperElement se) {
+		if(isVisible())
+		{
+			if(Math.abs(getX()-se.getX())<=56&&Math.abs(getY()-se.getY())<=20)
+			{
+				return true;
+			}
+			else if(Math.abs(getY()-se.getY())<=56&&Math.abs(getX()-se.getX())<=20)
+		  	{
+				return true;
+		  	}
+		}
+		return false;
+	}
+	
 }

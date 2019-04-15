@@ -25,8 +25,7 @@ public class ElementManager {
 	protected void init(){
 		map=new HashMap<>();
 		map.put("play", new ArrayList<>());
-		map.put("enemyList", new ArrayList<>());
-		map.put("playFire", new ArrayList<>());
+		map.put("bubble", new ArrayList<>());
 		map.put("tree", new ArrayList<>());
 		map.put("apricot", new ArrayList<>());
 		map.put("box",new ArrayList<>());
@@ -70,7 +69,9 @@ public class ElementManager {
 	public void load() {
 		ElementLoad.getElementLoad().readImgPro();
 		ElementLoad.getElementLoad().readPlayPro();
+		/*原来用于飞机的，现在不需要就删去了
 		ElementLoad.getElementLoad().readGamepro();
+		*/
 		ElementLoad.getElementLoad().readFloorPro();
 //		开放一个 状态，界面可以做  前夕啦（前面的过度信息）
 //		......
@@ -94,6 +95,8 @@ public class ElementManager {
 			map.get("house").addAll(houseList);
 		}
 	}
+	
+	/*原来用于飞机的，现在不需要就删去了
 //	控制流程   int time游戏进行时间
 	public void linkGame(int time) {
 //		可以拿到流程 list
@@ -109,6 +112,7 @@ public class ElementManager {
 			list.remove(list.size()-1);
 		}
 	}
+	*/
 }
 
 

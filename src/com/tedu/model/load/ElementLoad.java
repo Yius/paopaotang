@@ -44,10 +44,11 @@ public class ElementLoad {
 		return load;
 	}
 	
+	/*原来用于飞机的，现在不需要就删去了
 //	读取流程
 	public void readGamepro(){
 		InputStream in=ElementLoad.class.getClassLoader()
-				.getResourceAsStream("com/tedu/pro/GameRunA.pro");
+				.getResourceAsStream("com/tedu/pro/GameRunA.properties");
 		try {
 			pro.clear();
 			pro.load(in);
@@ -60,12 +61,13 @@ public class ElementLoad {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	
 //	读取主角配置
 	public void readPlayPro(){
 		InputStream in=ElementLoad.class.getClassLoader()
-				.getResourceAsStream("com/tedu/pro/play.pro");
+				.getResourceAsStream("com/tedu/pro/play.properties");
 		try {
 			pro.clear();
 			pro.load(in);
@@ -115,7 +117,7 @@ public class ElementLoad {
 //	读取图片的
 	public void readImgPro(){
 		InputStream in=ElementLoad.class.getClassLoader()
-			.getResourceAsStream("com/tedu/pro/mapA.pro");
+			.getResourceAsStream("com/tedu/pro/mapA.properties");
 		try {
 			pro.clear();
 			pro.load(in);

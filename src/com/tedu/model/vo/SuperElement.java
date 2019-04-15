@@ -25,8 +25,6 @@ public abstract class SuperElement{
 	private boolean canBlock;//能够挡住爆炸的水泡吗
 	private boolean aggressive;//能够攻击吗（只有爆炸的水泡会为true）
 	private boolean canPass;//能够穿透吗
-	private boolean boomed;//水泡了吗爆炸
-	private boolean died;//人物死亡了吗
 	
    
 	/*
@@ -49,30 +47,7 @@ public abstract class SuperElement{
 		move();
 		destroy();
 	}
-//	你是选择  this pk 参数    还是  参数PK参数
-	public boolean gamePK(SuperElement se) {//泡泡炸人
-		if(isVisible())
-		{
-			if(Math.abs(getX()-se.getX())<=56&&Math.abs(getY()-se.getY())<=20)
-			{
-				return true;
-			}
-			else if(Math.abs(getY()-se.getY())<=56&&Math.abs(getX()-se.getX())<=20)
-		  	{
-				return true;
-		  	}
-		}
-		return false;
-//		Rectangle r1=new Rectangle(x, y, w, h);
-//		Rectangle r2=new Rectangle(se.x, se.y, se.w, se.h);
-//		return r1.intersects(r2);//如果矩形有交集，返回 true
-	}
 	
-	public boolean gameCrash(SuperElement se){//人物和物体碰撞
-		Rectangle r1=new Rectangle(x, y, w, h);
-		Rectangle r2=new Rectangle(se.x, se.y, se.w, se.h);
-		return r1.intersects(r2);//如果矩形有交集，返回 true
-	}
 	
 	public abstract void showElement(Graphics g);
 	public abstract void move();
@@ -164,32 +139,15 @@ public abstract class SuperElement{
 	public void setCanPass(boolean canPass) {
 		this.canPass = canPass;
 	}
-	
-	 public boolean isBoomed() {
-			return boomed;
-		}
 
-		public void setBoomed(boolean boomed) {
-			this.boomed = boomed;
-		}
-		
+	public int getTime() {
+		// TODO Auto-generated method stub
+		return time;
+	}
 
-		public boolean isDied() {
-			return died;
-		}
-
-		public void setDied(boolean died) {
-			this.died = died;
-		}
-
-		public int getTime() {
-			// TODO Auto-generated method stub
-			return time;
-		}
-
-		public void setTime(int time) {
-			this.time = time;
-		}
+	public void setTime(int time) {
+		this.time = time;
+	}
 
 	
 }
