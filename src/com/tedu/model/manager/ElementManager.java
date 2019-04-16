@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import com.tedu.model.load.ElementLoad;
-import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
 
 /**
@@ -74,6 +72,7 @@ public class ElementManager {
 		ElementLoad.getElementLoad().readGamepro();
 		*/
 		ElementLoad.getElementLoad().readFloorPro();
+		ElementLoad.getElementLoad().readToolsPro();
 //		开放一个 状态，界面可以做  前夕啦（前面的过度信息）
 //		......
 		/*

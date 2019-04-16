@@ -6,3 +6,4 @@ img×ÊÔ´ÎÄ¼þ¼ÐÖÐ£¬boomÎª±¬Õ¨Ð§¹ûÍ¼£¬characterÎª½ÇÉ«Í¼£¬mapÎªµØÍ¼ÉÏµÄÎïÆ·Í¼£¨Èç¹û¾
 ÉËº¦ÅÐ¶¨µÈÇé¿öÏÂÔò¶¼ÊÇ32*32ÏñËØ£¨ÎªÁËÈËÎïÏòÉÏ×ß²»»áÏÔµÃÆæ¹Ö£¬ÔÚÊ÷ÖÐÎÒÉèÖÃÎª32*30£¬¸ù¾ÝºóÐøÇé¿ö»¹Òª¿¼ÂÇÊÇ·ñ±ä¸ü£©
 playerOne²Ù×÷ÎªÉÏÏÂ×óÓÒ¼Ó»Ø³µ£¬playerTwoÎªwsad¼Ó¿Õ¸ñ
 listPKÊÇÊµÏÖÅÝÅÝÕ¨ÈËÓëÏä×ÓµÄ·½·¨£¬Èç¹ûfloor[x][y]´óÓÚ300Ôò±íÃ÷¸ÃÎ»ÖÃÓÐÏä×Ó£¬ÐèÒª½«floor[x][y]ÉèÎª0
+»ñÈ¡µÀ¾ßµÄ¸ÅÂÊÎª2/3

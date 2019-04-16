@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 import com.tedu.model.load.ElementLoad;
-import com.tedu.model.manager.ElementManager;
 
 public class Boom extends SuperElement{
 	private ImageIcon img;

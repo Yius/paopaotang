@@ -1,10 +1,8 @@
 package com.tedu.model.load;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,7 @@ import javax.swing.ImageIcon;
 public class ElementLoad {
 	private Map<String,ImageIcon> map;
 	private Map<String,List<String>> playmap;
-	private Map<String,List<String>> enemymap;
+	private Map<String,String> toolsMap;// 1=bubbleTool 
 	private int[][] floor;
 	private List<String> gameList;//游戏的流程控制  敌人兵力出现控制
 //	合金弹头的小组注意：你们用的是  Map<String,List<ImageIcon>>
@@ -35,6 +33,7 @@ public class ElementLoad {
 		playmap=new HashMap<>();
 		pro=new Properties();
 		gameList=new ArrayList<>();
+		toolsMap = new HashMap<>();
 		floor = new int[20][20];
 	}
 	public static synchronized ElementLoad getElementLoad(){
@@ -62,6 +61,22 @@ public class ElementLoad {
 		}
 	}
 	*/
+	
+//	读取道具资源
+	public void readToolsPro() {
+		InputStream in=ElementLoad.class.getClassLoader()
+				.getResourceAsStream("com/tedu/pro/tools.properties");
+		try {
+			pro.clear();
+			pro.load(in);
+			for(Object o:pro.keySet()){
+				String str=pro.getProperty(o.toString());
+				toolsMap.put(o.toString(), str);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 //	读取主角配置
@@ -141,29 +156,22 @@ public class ElementLoad {
 	public Map<String, List<String>> getPlaymap() {
 		return playmap;
 	}
-	public Map<String, List<String>> getEnemymap() {
-		return enemymap;
-	}
 	public int[][] getFloor() {
 		return floor;
 	}
+	public Map<String, String> getToolsMap() {
+		return toolsMap;
+	}
 	
 	/*
-	 * 暂时用于测试
+	 //暂时用于测试
 	public static void main(String[] args) {
-		ElementLoad.getElementLoad().readFloorPro();
-		int[][] floor = ElementLoad.getElementLoad().getFloor();
-		for(int i=0;i<floor.length;++i) {
-			System.out.print(i+1+": ");
-			for(int j=0;j<floor[0].length;++j) {
-				System.out.print(floor[i][j]);
-			}
-			System.out.println();
+		ElementLoad.getElementLoad().readToolsPro();
+		Map<String,String> map = ElementLoad.getElementLoad().getToolsMap();
+		for(String str:map.keySet()) {
+			System.out.println(str+":"+map.get(str));
 		}
 	}
 	*/
-	
-	
-	
-	
+
 }

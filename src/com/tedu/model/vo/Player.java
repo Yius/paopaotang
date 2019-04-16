@@ -13,6 +13,10 @@ public class Player extends Character{
 	
 	private int num;//分数
 	private ImageIcon img;
+	private int maxBubbleNums = 1;	//当前能够放置的最大泡泡数
+	private int currentBubbleNums = 1;	//当前能够放置的泡泡数
+	private int reloadTime = 31; //这是根据泡泡爆炸事件得出的
+	private int time = 0;	//计时以达到限制释放的作用
 //	private StopMove stopMove;
 //	当前玩家名称。。。。
 	
@@ -64,7 +68,7 @@ public class Player extends Character{
 	}
 	
 	public void addBubble(){
-		if(!pk){//如果PK是false就不需要 添加子弹
+		if(!pk || currentBubbleNums == 0){//如果PK是false就不需要 添加子弹
 			return;
 		}
 		List<SuperElement> list1=
@@ -78,6 +82,7 @@ public class Player extends Character{
 		long x = Math.round((double)(getX())/32);
 		long y = Math.round((double)(getY())/32);
 		list1.add(Bubble.createBubble((int)x*32, (int)y*32, s));
+		--currentBubbleNums;
 		pk=false;//每按一次 只能发射一颗子弹	
 	}
 	
@@ -109,7 +114,29 @@ public class Player extends Character{
 		}
 	}
 	
-
+	@Override
+	public void move() {
+		super.move();
+		countTime();
+	}
+	
+	/*
+	 * 计时用的
+	 */
+	private void countTime() {
+		if(currentBubbleNums >= maxBubbleNums) {
+			return ;
+		}
+		++time;
+		if(time == reloadTime) {
+			time = 0;
+			if(currentBubbleNums < maxBubbleNums) {
+				++currentBubbleNums;
+			}
+		}
+	}
+	
+	
 	/*
 	public void setStopMove(StopMove stopMove) {
 		this.stopMove = stopMove;
