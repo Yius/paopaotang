@@ -1,8 +1,6 @@
 package com.tedu.model.vo;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +8,6 @@ import javax.swing.ImageIcon;
 
 import com.tedu.model.load.ElementLoad;
 import com.tedu.model.manager.ElementManager;
-import com.tedu.model.manager.MoveType;
 
 public class Player extends Character{
 	
@@ -28,7 +25,6 @@ public class Player extends Character{
 		this.img=img;//就近原则  
 		num=0;
 		pk=false;
-		setCanPass(false);
 //		stopMove=StopMove.None;原用于判断碰撞，现在感觉没用，先删去
 	}
 	

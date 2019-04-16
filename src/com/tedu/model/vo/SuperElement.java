@@ -20,9 +20,7 @@ public abstract class SuperElement{
 	private int h;
 	private boolean visible;//默认为 true 代表 存活
 	private boolean canDestroy;//能够被摧毁吗,默认为true
-	private boolean canBlock;//能够挡住爆炸的水泡吗
 	private boolean aggressive;//能够攻击吗（只有爆炸的水泡会为true）
-	private boolean canPass;//能够穿透吗
 	
    
 	/*
@@ -99,14 +97,6 @@ public abstract class SuperElement{
 		this.canDestroy = canDestroy;
 	}
 
-	public boolean isCanBlock() {
-		return canBlock;
-	}
-
-	public void setCanBlock(boolean canBlock) {
-		this.canBlock = canBlock;
-	}
-
 	public boolean isAggressive() {
 		return aggressive;
 	}
@@ -130,14 +120,5 @@ public abstract class SuperElement{
 	public void setCol(int col) {
 		this.col = col;
 	}
-
-	public boolean isCanPass() {
-		return canPass;
-	}
-
-	public void setCanPass(boolean canPass) {
-		this.canPass = canPass;
-	}
-
 	
 }

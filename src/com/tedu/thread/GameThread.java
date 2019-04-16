@@ -1,6 +1,5 @@
 package com.tedu.thread;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -100,10 +99,6 @@ public class GameThread extends Thread{
 				 * 面向对象而言，gamePK应该是boom特有方法
 				 */
 				if(boom.gamePK(otherThings.get(j))){	
-					//如果不能被摧毁，就直接跳过
-					/*if(!otherThings.get(j).isCanDestroy()) {
-						continue;
-					}*/
 					int[][] floor = ElementLoad.getElementLoad().getFloor();
 					int x = boom.getX()+5;
 					int y = boom.getY()+5;
@@ -114,8 +109,9 @@ public class GameThread extends Thread{
 					if(floor[y/32+1][x/32]>300) 
 						floor[y/32+1][x/32]=0;
 					if(floor[y/32-1][x/32]>300) 
-						floor[y/32-1][x/32]=0;						
-					otherThings.get(j).setVisible(false);
+						floor[y/32-1][x/32]=0;	
+					//根据其自身的能否摧毁属性决定是否将其设置为不可见
+					otherThings.get(j).setVisible(!otherThings.get(j).isCanDestroy());
 				}
 			}
 		}

@@ -16,7 +16,6 @@ public class House extends SuperElement{
 	public House(int x,int y,int w,int z,ImageIcon img){
 		super(x,y,w,z);
 		this.img=img;//就近原则  
-		setCanPass(false);
 		setCanDestroy(false);
 	}
 	
