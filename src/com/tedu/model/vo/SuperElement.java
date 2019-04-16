@@ -18,8 +18,6 @@ public abstract class SuperElement{
 	private int y;//画图片的左上角y
 	private int w;
 	private int h;
-	private int time;
-	private int t;
 	private boolean visible;//默认为 true 代表 存活
 	private boolean canDestroy;//能够被摧毁吗
 	private boolean canBlock;//能够挡住爆炸的水泡吗
@@ -138,15 +136,6 @@ public abstract class SuperElement{
 
 	public void setCanPass(boolean canPass) {
 		this.canPass = canPass;
-	}
-
-	public int getTime() {
-		// TODO Auto-generated method stub
-		return time;
-	}
-
-	public void setTime(int time) {
-		this.time = time;
 	}
 
 	

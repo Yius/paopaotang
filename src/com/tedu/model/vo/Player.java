@@ -80,7 +80,9 @@ public class Player extends Character{
 		//TODO 这里之后必须改
 		List<String> list = map.get("onePlayer");
 		String s=list.get(0);
-		list1.add(Bubble.createBubble(getX(), getY(), s));
+		long x = Math.round((double)(getX())/32);
+		long y = Math.round((double)(getY())/32);
+		list1.add(Bubble.createBubble((int)x*32, (int)y*32, s));
 		pk=false;//每按一次 只能发射一颗子弹	
 	}
 	

@@ -12,8 +12,8 @@ import com.tedu.model.manager.ElementManager;
 public class Bubble extends SuperElement{
 	private ImageIcon img;
 	private int movex;
-	private int time = 0;//靠循环来计时，也许有更好的方法，暂时使用，当time达到4*6-1=23时爆炸
-	private int diedTime = 23;
+	private int time = 0;//靠循环来计时，也许有更好的方法，暂时使用，当time达到4*8-1=31时爆炸
+	private int diedTime = 31;
 	
 	public Bubble() {
 		super();

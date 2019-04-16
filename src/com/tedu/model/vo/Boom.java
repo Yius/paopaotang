@@ -11,7 +11,16 @@ public class Boom extends SuperElement{
 	private ImageIcon img;
 	private int movey;
 	private int time=0;
+	private int flag;
 	
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
+
 	public Boom(){
 		super();
 	}
@@ -75,14 +84,14 @@ public class Boom extends SuperElement{
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		
+		++time;
 	}
 
 	
 	@Override
 	public void destroy() {
-		setTime(time++);
-		if(getTime()==8) {
+		if(time==8) {
+			time = 0;
 			setVisible(false);
 		}
 	}
@@ -91,12 +100,31 @@ public class Boom extends SuperElement{
 	public boolean gamePK(SuperElement se) {
 		if(isVisible())
 		{
-			if(Math.abs(getX()-se.getX())<=56&&Math.abs(getY()-se.getY())<=20)
+			int[][] floor = ElementLoad.getElementLoad().getFloor();	
+			if(Math.abs(getX()-se.getX())<=50&&Math.abs(getY()-se.getY())<=10)
 			{
+//				if(this instanceof PlayerFire) {
+//					((PlayerFire)this).setFlag(1);
+//				}
+				this.setFlag(1);
 				return true;
 			}
-			else if(Math.abs(getY()-se.getY())<=56&&Math.abs(getX()-se.getX())<=20)
+			
+			if(Math.abs(getY()-se.getY())<=50&&Math.abs(getX()-se.getX())<=10)
 		  	{
+//				if(this instanceof PlayerFire) {
+//					if(((PlayerFire)this).getFlag() == 1) {
+//						((PlayerFire)this).setFlag(3);
+//					}else {
+//						((PlayerFire)this).setFlag(2);
+//					}
+//				}
+				if(this.getFlag()==1) {
+					this.setFlag(3);
+				}
+				else {
+					this.setFlag(2);
+				}
 				return true;
 		  	}
 		}

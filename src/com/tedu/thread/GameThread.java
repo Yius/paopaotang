@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.tedu.model.load.ElementLoad;
 import com.tedu.model.manager.ElementManager;
 import com.tedu.model.vo.Boom;
 import com.tedu.model.vo.Player;
@@ -91,7 +92,38 @@ public class GameThread extends Thread{
 				 * 面向对象而言，gamePK应该是boom特有方法
 				 */
 				if(boom.gamePK(otherThings.get(j))){
-					otherThings.get(j).setVisible(false);
+				
+					int[][] floor = ElementLoad.getElementLoad().getFloor();
+					int x = boom.getX()+5;
+					int y = boom.getY()+5;
+						switch(boom.getFlag()) {
+						
+						case 1:
+							if(floor[y/32][x/32+1]!=1&&floor[y/32][x/32+1]!=2&&floor[y/32][x/32+1]!=4&&floor[y/32][x/32+1]!=5) 
+								floor[y/32][x/32+1]=0;System.out.println(y/32+" "+(int)(x/32+1));
+							if(floor[y/32][x/32-1]!=1&&floor[y/32][x/32-1]!=2&&floor[y/32][x/32-1]!=4&&floor[y/32][x/32-1]!=5)
+								floor[y/32][x/32-1]=0;
+							break;
+							
+						case 2:
+							if(floor[y/32+1][x/32]!=1&&floor[y/32+1][x/32]!=2&&floor[y/32+1][x/32]!=4&&floor[y/32+1][x/32]!=5) 
+								floor[y/32+1][x/32]=0;
+							if(floor[y/32-1][x/32]!=1&&floor[y/32-1][x/32]!=2&&floor[y/32-1][x/32]!=4&&floor[y/32-1][x/32]!=5) 
+								floor[y/32-1][x/32]=0;
+								
+						case 3:
+							if(floor[y/32][x/32+1]!=1&&floor[y/32][x/32+1]!=2&&floor[y/32][x/32+1]!=4&&floor[y/32][x/32+1]!=5) 
+								floor[y/32][x/32+1]=0;
+							if(floor[y/32][x/32-1]!=1&&floor[y/32][x/32-1]!=2&&floor[y/32][x/32-1]!=4&&floor[y/32][x/32-1]!=5) 
+								floor[y/32][x/32-1]=0;
+							if(floor[y/32+1][x/32]!=1&&floor[y/32+1][x/32]!=2&&floor[y/32+1][x/32]!=4&&floor[y/32+1][x/32]!=5) 
+								floor[y/32+1][x/32]=0;
+							if(floor[y/32-1][x/32]!=1&&floor[y/32-1][x/32]!=2&&floor[y/32-1][x/32]!=4&&floor[y/32-1][x/32]!=5) 
+								floor[y/32-1][x/32]=0;
+							break;
+						}
+						
+						otherThings.get(j).setVisible(false);
 				}
 			}
 		}
