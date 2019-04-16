@@ -17,6 +17,7 @@ public class House extends SuperElement{
 		super(x,y,w,z);
 		this.img=img;//就近原则  
 		setCanPass(false);
+		setCanDestroy(false);
 	}
 	
 	public static House createHouse(int row,int col){

@@ -34,7 +34,6 @@ public class Player extends Character{
 	
 	//可以直接调用这个方法，用来得到一个玩家对象  str里面包含的就是玩家对象的信息
 	public static Player createPlayer(String str){
-//		playerA,playFire,150,300,32,32
 
 		String [] arr=str.split(",");
 		int x=Integer.parseInt(arr[3]);
@@ -43,7 +42,6 @@ public class Player extends Character{
 		int h=Integer.parseInt(arr[6]);
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get(arr[0]);
-		
 		return new Player(x,y,w,h,img);
 	}
 	
@@ -78,7 +76,8 @@ public class Player extends Character{
 		Map<String, List<String>> map=
 				ElementLoad.getElementLoad().getPlaymap();
 		//TODO 这里之后必须改
-		List<String> list = map.get("onePlayer");
+		//TODO 这里暂时看来是狗尾续貂的，后期可能会引发bug
+		List<String> list = map.get("playerOne");
 		String s=list.get(0);
 		long x = Math.round((double)(getX())/32);
 		long y = Math.round((double)(getY())/32);

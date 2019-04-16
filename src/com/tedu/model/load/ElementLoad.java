@@ -67,13 +67,17 @@ public class ElementLoad {
 //	读取主角配置
 	public void readPlayPro(){
 		InputStream in=ElementLoad.class.getClassLoader()
-				.getResourceAsStream("com/tedu/pro/play.properties");
+				.getResourceAsStream("com/tedu/pro/player.properties");
 		try {
 			pro.clear();
 			pro.load(in);
-			List<String> list=new ArrayList<>();
+			List<String> list;
+			/*
+			 * 这里可能存在逻辑问题
+			 */
 			for(Object o:pro.keySet()){
 				String str=pro.getProperty(o.toString());
+				list=new ArrayList<>();
 				list.add(str);
 				playmap.put(o.toString(), list);
 			}

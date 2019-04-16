@@ -23,14 +23,18 @@ public class ElementFactory {
 	public static List<SuperElement> elementFactory(String name){
 		Map<String, List<String>> map=
 			ElementLoad.getElementLoad().getPlaymap();
-		List<String> list1=ElementLoad.getElementLoad().getGameList();
 		List<SuperElement> result = new ArrayList<>();
 		int[][] floor = MapManager.getMapManager().getFloor();
 		switch(name){
-		case "onePlayer":
+		case "playerOne":
 			List<String> list=map.get(name);
-			String s=list.get(0);//playerA,playFire,150,300,40,40
+			String s=list.get(0);//playerOne=playerA,bubble,boom,150,350,33,33
 			result.add(Player.createPlayer(s));
+			return result;
+		case "playerTwo":
+			List<String> list2=map.get(name);
+			String s2=list2.get(0);//playerTwo=playerB,bubble,boom,150,400,33,33
+			result.add(Player.createPlayer(s2));
 			return result;
 		case "tree":
 			for(int i=0;i<floor.length;++i) {

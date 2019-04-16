@@ -67,17 +67,25 @@ public class GameThread extends Thread{
 		}
 	}
 	private void PK() {
-		List<SuperElement> playList = ElementManager.getManager().getElementList("play");
+		List<SuperElement> playerOneList = ElementManager.getManager().getElementList("playerOne");
+		List<SuperElement> playerTwoList = ElementManager.getManager().getElementList("playerTwo");
 		List<SuperElement> treeList = ElementManager.getManager().getElementList("tree");
 		List<SuperElement> houseList = ElementManager.getManager().getElementList("house");
 		List<SuperElement> boxList = ElementManager.getManager().getElementList("box");
 		List<SuperElement> bubbleList = ElementManager.getManager().getElementList("bubble");
 		List<SuperElement> boomList = ElementManager.getManager().getElementList("boom");
-		pkWithRoadBlock(playList,treeList);//路障
-		pkWithRoadBlock(playList,houseList);
-		pkWithRoadBlock(playList,boxList);
-		listPK(boomList,playList);
+		pkWithRoadBlock(playerOneList,treeList);//路障
+		pkWithRoadBlock(playerTwoList, treeList);
+//		pkWithRoadBlock(playerOneList, bubbleList);
+//		pkWithRoadBlock(playerTwoList, bubbleList);
+		pkWithRoadBlock(playerOneList,houseList);
+		pkWithRoadBlock(playerTwoList, houseList);
+		pkWithRoadBlock(playerOneList,boxList);
+		pkWithRoadBlock(playerTwoList, boxList);
+		listPK(boomList,playerOneList);
+		listPK(boomList,playerTwoList);
 		listPK(boomList,boxList);
+		listPK(boomList,playerTwoList);
 //		可以举行比较
 	}
 	
@@ -91,39 +99,23 @@ public class GameThread extends Thread{
 				/*
 				 * 面向对象而言，gamePK应该是boom特有方法
 				 */
-				if(boom.gamePK(otherThings.get(j))){
-				
+				if(boom.gamePK(otherThings.get(j))){	
+					//如果不能被摧毁，就直接跳过
+					/*if(!otherThings.get(j).isCanDestroy()) {
+						continue;
+					}*/
 					int[][] floor = ElementLoad.getElementLoad().getFloor();
 					int x = boom.getX()+5;
 					int y = boom.getY()+5;
-						switch(boom.getFlag()) {
-						
-						case 1:
-							if(floor[y/32][x/32+1]!=1&&floor[y/32][x/32+1]!=2&&floor[y/32][x/32+1]!=4&&floor[y/32][x/32+1]!=5) 
-								floor[y/32][x/32+1]=0;System.out.println(y/32+" "+(int)(x/32+1));
-							if(floor[y/32][x/32-1]!=1&&floor[y/32][x/32-1]!=2&&floor[y/32][x/32-1]!=4&&floor[y/32][x/32-1]!=5)
-								floor[y/32][x/32-1]=0;
-							break;
-							
-						case 2:
-							if(floor[y/32+1][x/32]!=1&&floor[y/32+1][x/32]!=2&&floor[y/32+1][x/32]!=4&&floor[y/32+1][x/32]!=5) 
-								floor[y/32+1][x/32]=0;
-							if(floor[y/32-1][x/32]!=1&&floor[y/32-1][x/32]!=2&&floor[y/32-1][x/32]!=4&&floor[y/32-1][x/32]!=5) 
-								floor[y/32-1][x/32]=0;
-								
-						case 3:
-							if(floor[y/32][x/32+1]!=1&&floor[y/32][x/32+1]!=2&&floor[y/32][x/32+1]!=4&&floor[y/32][x/32+1]!=5) 
-								floor[y/32][x/32+1]=0;
-							if(floor[y/32][x/32-1]!=1&&floor[y/32][x/32-1]!=2&&floor[y/32][x/32-1]!=4&&floor[y/32][x/32-1]!=5) 
-								floor[y/32][x/32-1]=0;
-							if(floor[y/32+1][x/32]!=1&&floor[y/32+1][x/32]!=2&&floor[y/32+1][x/32]!=4&&floor[y/32+1][x/32]!=5) 
-								floor[y/32+1][x/32]=0;
-							if(floor[y/32-1][x/32]!=1&&floor[y/32-1][x/32]!=2&&floor[y/32-1][x/32]!=4&&floor[y/32-1][x/32]!=5) 
-								floor[y/32-1][x/32]=0;
-							break;
-						}
-						
-						otherThings.get(j).setVisible(false);
+					if(floor[y/32][x/32+1]>300) 
+						floor[y/32][x/32+1]=0;
+					if(floor[y/32][x/32-1]>300) 
+						floor[y/32][x/32-1]=0;
+					if(floor[y/32+1][x/32]>300) 
+						floor[y/32+1][x/32]=0;
+					if(floor[y/32-1][x/32]>300) 
+						floor[y/32-1][x/32]=0;						
+					otherThings.get(j).setVisible(false);
 				}
 			}
 		}

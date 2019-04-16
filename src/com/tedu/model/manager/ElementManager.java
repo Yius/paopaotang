@@ -24,7 +24,8 @@ public class ElementManager {
 //	初始化
 	protected void init(){
 		map=new HashMap<>();
-		map.put("play", new ArrayList<>());
+		map.put("playerOne", new ArrayList<>());
+		map.put("playerTwo", new ArrayList<>());
 		map.put("bubble", new ArrayList<>());
 		map.put("tree", new ArrayList<>());
 		map.put("apricot", new ArrayList<>());
@@ -78,12 +79,17 @@ public class ElementManager {
 		/*
 		 * 这里只是示例，可以有更多的东西加入，而且可以考虑用配置化的方法去添加
 		 */
-		List<SuperElement> playerList = ElementFactory.elementFactory("onePlayer");
+		//TODO 以下两个playerList都是只有一个元素，可能有更好的方法
+		List<SuperElement> playerOneList = ElementFactory.elementFactory("playerOne");
+		List<SuperElement> playerTwoList = ElementFactory.elementFactory("playerTwo");
 		List<SuperElement> treeList = ElementFactory.elementFactory("tree");
 		List<SuperElement> boxList = ElementFactory.elementFactory("box");
 		List<SuperElement> houseList = ElementFactory.elementFactory("house");
-		if(playerList!=null) {
-			map.get("play").addAll(playerList);
+		if(playerOneList!=null) {
+			map.get("playerOne").addAll(playerOneList);
+		}
+		if(playerTwoList!=null) {
+			map.get("playerTwo").addAll(playerTwoList);
 		}
 		if(treeList!=null) {
 			map.get("tree").addAll(treeList);

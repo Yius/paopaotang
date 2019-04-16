@@ -19,7 +19,7 @@ public abstract class SuperElement{
 	private int w;
 	private int h;
 	private boolean visible;//默认为 true 代表 存活
-	private boolean canDestroy;//能够被摧毁吗
+	private boolean canDestroy;//能够被摧毁吗,默认为true
 	private boolean canBlock;//能够挡住爆炸的水泡吗
 	private boolean aggressive;//能够攻击吗（只有爆炸的水泡会为true）
 	private boolean canPass;//能够穿透吗
@@ -38,6 +38,7 @@ public abstract class SuperElement{
 		this.w=w;
 		this.h=h;
 		visible=true;
+		canDestroy = true;
 	}
 	
 //	这些方法是可以有 顺序执行的。模板模式  //父类的引用指向与 子类的实体对象。

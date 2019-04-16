@@ -19,6 +19,7 @@ public class Tree extends SuperElement{
 		super(x,y,w,z);
 		this.img=img;//就近原则  
 		setCanPass(false);
+		setCanDestroy(false);
 	}
 	
 	/**
@@ -28,7 +29,6 @@ public class Tree extends SuperElement{
 	 * @return
 	 */
 	public static Tree createTree(int row,int col){
-//		playerA,playFire,150,300,40,40
 
 //		String [] arr=str.split(",");
 //		int row=Integer.parseInt(arr[0]);

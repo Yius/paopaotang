@@ -30,8 +30,8 @@ public class MyJPanel extends JPanel implements Runnable{
 //		this.setBackground(Color.black);
 //		给一个判定值  也可以使用枚举
 //		1.前动画
-		MapManager.getMapManager().drawFloor(g);
 //		2.gameRuntime
+		MapManager.getMapManager().drawFloor(g);
 		gameRunTime(g);//Graphics 画笔
 //		3.衔接动画
 		

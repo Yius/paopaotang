@@ -73,7 +73,8 @@ public class Bubble extends SuperElement{
 			ElementManager.getManager().getElementList("boom");
 	      Map<String, List<String>> map=
 			ElementLoad.getElementLoad().getPlaymap();
-	      List<String> list=map.get("onePlayer");
+	      //TODO 这里暂时看来是狗尾续貂的，后期可能会引发bug
+	      List<String> list=map.get("playerOne");
 	      //TODO 这里之后必须改掉
 	      String s=list.get(0);
 	      boomList.add(Boom.createBoom(getX(), getY(), s));
