@@ -7,6 +7,7 @@ import java.util.Map;
 import com.tedu.model.load.ElementLoad;
 import com.tedu.model.vo.Box;
 import com.tedu.model.vo.BubbleTool;
+import com.tedu.model.vo.BuleMedicine;
 import com.tedu.model.vo.House;
 import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
@@ -104,7 +105,7 @@ public class ElementFactory {
 	public static void createTool(int type, int row, int col) {
 		switch(type) {
 		case 601:ElementManager.getManager().getMap().get("bubbleTool").add(BubbleTool.createBubbleTool(row , col));break;
-		//case 602:ElementManager.getManager().getMap().get("buleMedicine").add(BuleMedicine.createBuleMedicine(row,col));break;
+		case 602:ElementManager.getManager().getMap().get("buleMedicine").add(BuleMedicine.createBuleMedicine(row,col));break;
 		//case 603:ElementManager.getManager().getMap().get("purpleMedicine").add(PurpleMedicine.createPurpleMedicine(row,col));break;
 		//....
 		}

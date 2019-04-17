@@ -14,22 +14,25 @@ public class Bubble extends SuperElement{
 	private int movex;
 	private int time = 0;//靠循环来计时，也许有更好的方法，暂时使用，当time达到4*8-1=31时爆炸
 	private int diedTime = 31;
+	//为了方便scale传递特设的
+	private int boomScale;
 	
 	public Bubble() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Bubble(int x, int y, int w, int h,ImageIcon img) {
+	public Bubble(int x, int y, int w, int h,ImageIcon img,int scale) {
 		super(x, y, w, h);
 		this.img=img;
+		this.boomScale = scale;
 	}
 
-	public static Bubble createBubble(int x,int y,String str){
+	public static Bubble createBubble(int x,int y,String str,int scale){
 		String []arr=str.split(",");
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get(arr[1]);
-		return new Bubble(x,y,32,32,img);
+		return new Bubble(x,y,32,32,img,scale);
 	}
 	
 	@Override
@@ -77,7 +80,7 @@ public class Bubble extends SuperElement{
 	      List<String> list=map.get("playerOne");
 	      //TODO 这里之后必须改掉
 	      String s=list.get(0);
-	      boomList.add(Boom.createBoom(getX(), getY(), s));
+	      boomList.add(Boom.createBoom(getX(), getY(), s ,boomScale));
 		}
 	}
 

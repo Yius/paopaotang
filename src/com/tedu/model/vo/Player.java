@@ -17,7 +17,7 @@ public class Player extends Character{
 	private int num;//分数
 	private ImageIcon img;
 	
-	//TODO  这部分写的很乱，之后也许要改动
+	//TODO  这部分写的很乱，之后也许要改动	泡泡道具相关
 	private int maxBubbleNums = 1;	//当前能够放置的最大泡泡数   , 默认最大上限为5
 	private int currentBubbleNums = 1;	//当前能够放置的泡泡数
 	private int reloadTime = 31; //这是根据泡泡爆炸时间得出的
@@ -27,6 +27,10 @@ public class Player extends Character{
 	private int target = reloadTime;		//装载时间
 	private boolean isFirst = true;		//是否是第一次计时
 	private int count = 0;		//队列计时
+	
+	//蓝药瓶相关
+	private int boomScale = 0 ; //当前泡泡的威力 , 默认最大上限为4
+	
 //	private StopMove stopMove;
 //	当前玩家名称。。。。
 	
@@ -92,7 +96,7 @@ public class Player extends Character{
 		String s=list.get(0);
 		long x = Math.round((double)(getX())/32);
 		long y = Math.round((double)(getY())/32);
-		list1.add(Bubble.createBubble((int)x*32, (int)y*32, s));
+		list1.add(Bubble.createBubble((int)x*32, (int)y*32, s,boomScale));
 		--currentBubbleNums;
 		if(!isFirst) {
 			//循环计数
@@ -172,6 +176,11 @@ public class Player extends Character{
 				if(maxBubbleNums<5) {
 					++maxBubbleNums;
 					++currentBubbleNums;
+				}
+			}
+			if(se instanceof BuleMedicine) {
+				if(boomScale < 4) {
+					++boomScale;
 				}
 			}
 			return true;

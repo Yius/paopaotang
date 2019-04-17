@@ -32,6 +32,7 @@ public class ElementManager {
 		map.put("boom", new ArrayList<>());
 		map.put("died", new ArrayList<>());
 		map.put("bubbleTool", new ArrayList<>());
+		map.put("buleMedicine", new ArrayList<>());
 	}
 //	得到一个完整的 map集合
 	public Map<String, List<SuperElement>> getMap() {

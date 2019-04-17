@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import com.tedu.model.load.ElementLoad;
-import com.tedu.model.manager.ElementFactory;
 import com.tedu.model.manager.ElementManager;
 import com.tedu.model.manager.MapManager;
 import com.tedu.model.vo.Boom;
@@ -77,6 +75,7 @@ public class GameThread extends Thread{
 		List<SuperElement> bubbleList = ElementManager.getManager().getElementList("bubble");
 		List<SuperElement> boomList = ElementManager.getManager().getElementList("boom");
 		List<SuperElement> bubbleToolList = ElementManager.getManager().getElementList("bubbleTool");
+		List<SuperElement> buleMedicineList = ElementManager.getManager().getElementList("buleMedicine");
 		pkWithRoadBlock(playerOneList,treeList);//路障
 		pkWithRoadBlock(playerTwoList, treeList);
 //		pkWithRoadBlock(playerOneList, bubbleList);
@@ -87,6 +86,8 @@ public class GameThread extends Thread{
 		pkWithRoadBlock(playerTwoList, boxList);
 		getTheTool(playerOneList, bubbleToolList);
 		getTheTool(playerTwoList, bubbleToolList);
+		getTheTool(playerOneList,buleMedicineList);
+		getTheTool(playerTwoList,buleMedicineList);
 		listPK(boomList,playerOneList);
 		listPK(boomList,playerTwoList);
 		listPK(boomList,boxList);
@@ -106,46 +107,6 @@ public class GameThread extends Thread{
 				 * 面向对象而言，gamePK应该是boom特有方法
 				 */
 				if(boom.gamePK(otherThings.get(j))){	
-					int[][] floor = ElementLoad.getElementLoad().getFloor();
-					int x = boom.getX()+5;
-					int y = boom.getY()+5;
-					//TODO 这里以后要改
-					if(floor[y/32][x/32+1]>300 && floor[y/32][x/32+1]<600) {
-						if(Math.random()< 1/3.0) {
-							floor[y/32][x/32+1] = r.nextInt(8) + 601; 
-							//TODO 注意下面这个方法尚不完善
-							ElementFactory.createTool(floor[y/32][x/32+1], y/32,x/32+1);
-						}else {
-							floor[y/32][x/32+1] = 0;
-						}
-					}
-					if(floor[y/32][x/32-1]>300 && floor[y/32][x/32-1]<600) {
-						if(Math.random()< 1/3.0) {
-							floor[y/32][x/32-1] = r.nextInt(8) + 601; 
-							//TODO 注意下面这个方法尚不完善
-							ElementFactory.createTool(floor[y/32][x/32-1], y/32,x/32-1); 
-						}else {
-							floor[y/32][x/32-1] = 0;
-						}
-					}
-					if(floor[y/32+1][x/32]>300 && floor[y/32+1][x/32]<600) {
-						if(Math.random()< 1/3.0) {
-							floor[y/32+1][x/32] = r.nextInt(8) + 601; 
-							//TODO 注意下面这个方法尚不完善
-							ElementFactory.createTool(floor[y/32+1][x/32], y/32+1,x/32); 
-						}else {
-							floor[y/32+1][x/32] = 0;
-						}
-					}
-					if(floor[y/32-1][x/32]>300 && floor[y/32-1][x/32]<600) {
-						if(Math.random()< 1/3.0) {
-							floor[y/32-1][x/32] = r.nextInt(8) + 601; 
-							//TODO 注意下面这个方法尚不完善
-							ElementFactory.createTool(floor[y/32-1][x/32], y/32-1,x/32);
-						}else {
-							floor[y/32-1][x/32] = 0;
-						}
-					}
 					//根据其自身的能否摧毁属性决定是否将其设置为不可见
 					otherThings.get(j).setVisible(!otherThings.get(j).isCanDestroy());
 				}

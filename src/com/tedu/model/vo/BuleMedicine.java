@@ -4,22 +4,22 @@ import java.awt.Graphics;
 
 import com.tedu.model.load.ElementLoad;
 
-public class BubbleTool extends SuperElement{
-	
+public class BuleMedicine extends SuperElement{
+
 	private int movex;
 	private int time = 0;
-	private int deadTime = 700; //道具消失时间
+	private int deadTime = 60; //道具消失时间
 	
-	public static BubbleTool createBubbleTool(int row,int col) {
-		return new BubbleTool(col*32,row*32,32,32);
+	public static BuleMedicine createBuleMedicine(int row,int col) {
+		return new BuleMedicine(col*32,row*32,32,32);
 	}
 
-	public BubbleTool() {
+	public BuleMedicine() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BubbleTool(int x, int y, int w, int h) {
+	public BuleMedicine(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		setRow(y/32);
 		setCol(x/32);
@@ -61,5 +61,5 @@ public class BubbleTool extends SuperElement{
 			floor[getY()/32][getX()/32] = 0;
 		}	
 	}
-
+	
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 import com.tedu.model.load.ElementLoad;
+import com.tedu.model.manager.ElementFactory;
 
 public class Box extends SuperElement{
 	private ImageIcon img;
@@ -36,8 +37,16 @@ public class Box extends SuperElement{
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-		
+		if(!isVisible()) {
+			int[][] floor = ElementLoad.getElementLoad().getFloor();
+			if(Math.random()< 1/3.0||true) {
+				floor[getY()/32][getX()/32] = /*r.nextInt(8) + */602; 
+				//TODO 注意下面这个方法尚不完善
+				ElementFactory.createTool(floor[getY()/32][getX()/32], getY()/32,getX()/32);
+			}else {
+				floor[getY()/32][getX()/32] = 0;
+			}
+		}
 	}
 
 }
