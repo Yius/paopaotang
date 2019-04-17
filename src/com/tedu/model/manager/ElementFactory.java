@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.tedu.model.load.ElementLoad;
 import com.tedu.model.vo.Box;
+import com.tedu.model.vo.BubbleTool;
 import com.tedu.model.vo.House;
 import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
@@ -36,6 +37,7 @@ public class ElementFactory {
 			String s2=list2.get(0);//playerTwo=playerB,bubble,boom,150,400,33,33
 			result.add(Player.createPlayer(s2));
 			return result;
+		/*
 		case "tree":
 			for(int i=0;i<floor.length;++i) {
 				for(int j=0;j<floor[0].length;++j) {
@@ -63,9 +65,48 @@ public class ElementFactory {
 				}
 			}
 			return result;
+			*/
 		}
 		return null;
 	}
 	
+	/*
+	 * 一次遍历加载地板的全部元素，比上面一次又一次遍历更快
+	 */
+	public static void loadFloorElementsAtFirst(){
+		Map<String,List<SuperElement>> result = ElementManager.getManager().getMap();
+		List<SuperElement> treeList = new ArrayList<>();
+		List<SuperElement> boxList = new ArrayList<>();
+		List<SuperElement> houseList = new ArrayList<>();
+		int[][] floor = MapManager.getMapManager().getFloor();
+		for(int i=0;i<floor.length;++i) {
+			for(int j=0;j<floor[0].length;++j) {
+				if(floor[i][j]>300) {
+					boxList.add(Box.createBox(i,j));
+					continue;
+				}
+				switch(floor[i][j]){
+				case 5:treeList.add(Tree.createTree(i,j));break;
+				case 1:
+				case 2:houseList.add(House.createHouse(i,j));break;
+				}
+			}
+		}
+		result.put("tree", treeList);
+		result.put("box", boxList);
+		result.put("house", houseList);
+	}
 	
+	/*
+	 *创建物品方法，尚不完善
+	 */
+	//TODO
+	public static void createTool(int type, int row, int col) {
+		switch(type) {
+		case 601:ElementManager.getManager().getMap().get("bubbleTool").add(BubbleTool.createBubbleTool(row , col));break;
+		//case 602:ElementManager.getManager().getMap().get("buleMedicine").add(BuleMedicine.createBuleMedicine(row,col));break;
+		//case 603:ElementManager.getManager().getMap().get("purpleMedicine").add(PurpleMedicine.createPurpleMedicine(row,col));break;
+		//....
+		}
+	}
 }

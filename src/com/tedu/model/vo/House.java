@@ -21,6 +21,7 @@ public class House extends SuperElement{
 	
 	public static House createHouse(int row,int col){
 
+		//这个img是空的
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get("house");//后期可以用配置文件换掉
 		//为了使上走更加逼真，此处高减少了一点

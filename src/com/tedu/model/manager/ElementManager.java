@@ -31,6 +31,7 @@ public class ElementManager {
 		map.put("house",new ArrayList<>());
 		map.put("boom", new ArrayList<>());
 		map.put("died", new ArrayList<>());
+		map.put("bubbleTool", new ArrayList<>());
 	}
 //	得到一个完整的 map集合
 	public Map<String, List<SuperElement>> getMap() {
@@ -81,15 +82,18 @@ public class ElementManager {
 		//TODO 以下两个playerList都是只有一个元素，可能有更好的方法
 		List<SuperElement> playerOneList = ElementFactory.elementFactory("playerOne");
 		List<SuperElement> playerTwoList = ElementFactory.elementFactory("playerTwo");
-		List<SuperElement> treeList = ElementFactory.elementFactory("tree");
-		List<SuperElement> boxList = ElementFactory.elementFactory("box");
-		List<SuperElement> houseList = ElementFactory.elementFactory("house");
+//		List<SuperElement> treeList = ElementFactory.elementFactory("tree");
+//		List<SuperElement> boxList = ElementFactory.elementFactory("box");
+//		List<SuperElement> houseList = ElementFactory.elementFactory("house");
+		//一次获取各种地板list元素，使预加载更快
+		ElementFactory.loadFloorElementsAtFirst();
 		if(playerOneList!=null) {
 			map.get("playerOne").addAll(playerOneList);
 		}
 		if(playerTwoList!=null) {
 			map.get("playerTwo").addAll(playerTwoList);
 		}
+		/*
 		if(treeList!=null) {
 			map.get("tree").addAll(treeList);
 		}
@@ -98,7 +102,7 @@ public class ElementManager {
 		}
 		if(houseList!=null) {
 			map.get("house").addAll(houseList);
-		}
+		}*/
 	}
 	
 	/*原来用于飞机的，现在不需要就删去了

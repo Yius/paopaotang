@@ -2,10 +2,13 @@ package com.tedu.thread;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import com.tedu.model.load.ElementLoad;
+import com.tedu.model.manager.ElementFactory;
 import com.tedu.model.manager.ElementManager;
+import com.tedu.model.manager.MapManager;
 import com.tedu.model.vo.Boom;
 import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
@@ -73,6 +76,7 @@ public class GameThread extends Thread{
 		List<SuperElement> boxList = ElementManager.getManager().getElementList("box");
 		List<SuperElement> bubbleList = ElementManager.getManager().getElementList("bubble");
 		List<SuperElement> boomList = ElementManager.getManager().getElementList("boom");
+		List<SuperElement> bubbleToolList = ElementManager.getManager().getElementList("bubbleTool");
 		pkWithRoadBlock(playerOneList,treeList);//路障
 		pkWithRoadBlock(playerTwoList, treeList);
 //		pkWithRoadBlock(playerOneList, bubbleList);
@@ -81,10 +85,12 @@ public class GameThread extends Thread{
 		pkWithRoadBlock(playerTwoList, houseList);
 		pkWithRoadBlock(playerOneList,boxList);
 		pkWithRoadBlock(playerTwoList, boxList);
+		getTheTool(playerOneList, bubbleToolList);
+		getTheTool(playerTwoList, bubbleToolList);
 		listPK(boomList,playerOneList);
 		listPK(boomList,playerTwoList);
 		listPK(boomList,boxList);
-		listPK(boomList,playerTwoList);
+//		listPK(boomList, bubbleToolList);
 //		可以举行比较
 	}
 	
@@ -92,6 +98,7 @@ public class GameThread extends Thread{
 	//判断泡泡是否炸到人或箱子
 	public void listPK(List<SuperElement> boomList,
 			List<SuperElement> otherThings){
+		Random r = new Random();
 		for(int i=0;i<boomList.size();i++){
 			for(int j=0;j<otherThings.size();j++){
 				Boom boom = (Boom)(boomList.get(i));
@@ -102,14 +109,43 @@ public class GameThread extends Thread{
 					int[][] floor = ElementLoad.getElementLoad().getFloor();
 					int x = boom.getX()+5;
 					int y = boom.getY()+5;
-					if(floor[y/32][x/32+1]>300) 
-						floor[y/32][x/32+1]=0;
-					if(floor[y/32][x/32-1]>300) 
-						floor[y/32][x/32-1]=0;
-					if(floor[y/32+1][x/32]>300) 
-						floor[y/32+1][x/32]=0;
-					if(floor[y/32-1][x/32]>300) 
-						floor[y/32-1][x/32]=0;	
+					//TODO 这里以后要改
+					if(floor[y/32][x/32+1]>300 && floor[y/32][x/32+1]<600) {
+						if(Math.random()< 1/3.0) {
+							floor[y/32][x/32+1] = r.nextInt(8) + 601; 
+							//TODO 注意下面这个方法尚不完善
+							ElementFactory.createTool(floor[y/32][x/32+1], y/32,x/32+1);
+						}else {
+							floor[y/32][x/32+1] = 0;
+						}
+					}
+					if(floor[y/32][x/32-1]>300 && floor[y/32][x/32-1]<600) {
+						if(Math.random()< 1/3.0) {
+							floor[y/32][x/32-1] = r.nextInt(8) + 601; 
+							//TODO 注意下面这个方法尚不完善
+							ElementFactory.createTool(floor[y/32][x/32-1], y/32,x/32-1); 
+						}else {
+							floor[y/32][x/32-1] = 0;
+						}
+					}
+					if(floor[y/32+1][x/32]>300 && floor[y/32+1][x/32]<600) {
+						if(Math.random()< 1/3.0) {
+							floor[y/32+1][x/32] = r.nextInt(8) + 601; 
+							//TODO 注意下面这个方法尚不完善
+							ElementFactory.createTool(floor[y/32+1][x/32], y/32+1,x/32); 
+						}else {
+							floor[y/32+1][x/32] = 0;
+						}
+					}
+					if(floor[y/32-1][x/32]>300 && floor[y/32-1][x/32]<600) {
+						if(Math.random()< 1/3.0) {
+							floor[y/32-1][x/32] = r.nextInt(8) + 601; 
+							//TODO 注意下面这个方法尚不完善
+							ElementFactory.createTool(floor[y/32-1][x/32], y/32-1,x/32);
+						}else {
+							floor[y/32-1][x/32] = 0;
+						}
+					}
 					//根据其自身的能否摧毁属性决定是否将其设置为不可见
 					otherThings.get(j).setVisible(!otherThings.get(j).isCanDestroy());
 				}
@@ -131,6 +167,24 @@ public class GameThread extends Thread{
 		}
 	}
 	
+	/*
+	 * 获得道具并将其销毁
+	 */
+	private void getTheTool(List<SuperElement> characters,List<SuperElement> tools) {
+		int[][] floor = MapManager.getMapManager().getFloor();
+		for(int i=0;i<characters.size();++i){
+			for(int j=0;j<tools.size();++j){
+				Player player = (Player)(characters.get(i));
+				if(player.getTool(tools.get(j))) {
+					int row = tools.get(j).getRow();
+					int col = tools.get(j).getCol();
+					floor[row][col]=0;
+					tools.get(j).setVisible(false);
+				}
+			}
+		}
+	}
+	
 	
 	/*原来用于飞机的，现在不需要就删去了
 	//游戏的流程控制 
@@ -147,7 +201,6 @@ public class GameThread extends Thread{
 //	控制进度,但是，作为 控制，请不要接触 load
 	private void loadElement() {
 		ElementManager.getManager().load();
-		
 	}
 	
 }

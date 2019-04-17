@@ -32,6 +32,7 @@ public class Tree extends SuperElement{
 //		String [] arr=str.split(",");
 //		int row=Integer.parseInt(arr[0]);
 //		int col=Integer.parseInt(arr[1]);
+		//TODO 这个img暂时是null
 		ImageIcon img=
 				ElementLoad.getElementLoad().getMap().get("tree");//后期可以用配置文件换掉
 		//为了使上走更加逼真，此处高减少了一点

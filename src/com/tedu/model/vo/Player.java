@@ -1,8 +1,11 @@
 package com.tedu.model.vo;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import javax.swing.ImageIcon;
 
@@ -13,10 +16,17 @@ public class Player extends Character{
 	
 	private int num;//分数
 	private ImageIcon img;
-	private int maxBubbleNums = 1;	//当前能够放置的最大泡泡数
+	
+	//TODO  这部分写的很乱，之后也许要改动
+	private int maxBubbleNums = 1;	//当前能够放置的最大泡泡数   , 默认最大上限为5
 	private int currentBubbleNums = 1;	//当前能够放置的泡泡数
-	private int reloadTime = 31; //这是根据泡泡爆炸事件得出的
+	private int reloadTime = 31; //这是根据泡泡爆炸时间得出的
 	private int time = 0;	//计时以达到限制释放的作用
+	private Queue<Integer> queue;	//记录泡泡爆炸时间
+	private int lastTime = 0;	//辅助记录泡泡上次爆炸时间
+	private int target = reloadTime;		//装载时间
+	private boolean isFirst = true;		//是否是第一次计时
+	private int count = 0;		//队列计时
 //	private StopMove stopMove;
 //	当前玩家名称。。。。
 	
@@ -29,6 +39,7 @@ public class Player extends Character{
 		this.img=img;//就近原则  
 		num=0;
 		pk=false;
+		queue = new LinkedList<>();
 //		stopMove=StopMove.None;原用于判断碰撞，现在感觉没用，先删去
 	}
 	
@@ -68,7 +79,7 @@ public class Player extends Character{
 	}
 	
 	public void addBubble(){
-		if(!pk || currentBubbleNums == 0){//如果PK是false就不需要 添加子弹
+		if(!pk || currentBubbleNums <= 0){//如果PK是false或者无蛋可放就不需要 添加子弹
 			return;
 		}
 		List<SuperElement> list1=
@@ -76,13 +87,19 @@ public class Player extends Character{
 		Map<String, List<String>> map=
 				ElementLoad.getElementLoad().getPlaymap();
 		//TODO 这里之后必须改
-		//TODO 这里暂时看来是狗尾续貂的，后期可能会引发bug
+		//TODO 这里暂时看来是画蛇添足的，后期可能会引发bug
 		List<String> list = map.get("playerOne");
 		String s=list.get(0);
 		long x = Math.round((double)(getX())/32);
 		long y = Math.round((double)(getY())/32);
 		list1.add(Bubble.createBubble((int)x*32, (int)y*32, s));
 		--currentBubbleNums;
+		if(!isFirst) {
+			//循环计数
+			queue.add(((time-lastTime+1000000000)%1000000000));
+		}
+		isFirst = false; 
+		lastTime = time;
 		pk=false;//每按一次 只能发射一颗子弹	
 	}
 	
@@ -117,6 +134,7 @@ public class Player extends Character{
 	@Override
 	public void move() {
 		super.move();
+		time = (time+1)%1000000000;
 		countTime();
 	}
 	
@@ -124,18 +142,42 @@ public class Player extends Character{
 	 * 计时用的
 	 */
 	private void countTime() {
-		if(currentBubbleNums >= maxBubbleNums) {
-			return ;
-		}
-		++time;
-		if(time == reloadTime) {
+		if(currentBubbleNums == maxBubbleNums) {
+			//重新初始化
 			time = 0;
-			if(currentBubbleNums < maxBubbleNums) {
-				++currentBubbleNums;
-			}
+			lastTime = 0;
+			isFirst = true;
+			count = 0;
+			target = reloadTime;
 		}
+		++count;
+		if(count == target) {
+			++currentBubbleNums;
+			count = 0;
+			if(queue.size() == 0) {
+				target = reloadTime;
+			}else {
+				target = queue.poll();
+			}
+		}	
 	}
 	
+	
+	public boolean getTool(SuperElement se) {
+		Rectangle r1=new Rectangle(getX(), getY(), getW(), getH());
+		Rectangle r2=new Rectangle(se.getX(), se.getY(), se.getW(), se.getH());
+		if(r1.intersects(r2)){
+			//泡泡道具，其他道具也应该在这写
+			if(se instanceof BubbleTool) {
+				if(maxBubbleNums<5) {
+					++maxBubbleNums;
+					++currentBubbleNums;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	/*
 	public void setStopMove(StopMove stopMove) {

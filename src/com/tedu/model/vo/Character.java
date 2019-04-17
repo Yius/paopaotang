@@ -1,6 +1,5 @@
 package com.tedu.model.vo;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.tedu.model.manager.MoveType;
@@ -76,7 +75,6 @@ public abstract class Character extends SuperElement{
 			}
 		}
 	}
-	
 	
 	public void move(){
 		switch(moveType){

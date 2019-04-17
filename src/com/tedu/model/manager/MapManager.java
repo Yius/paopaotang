@@ -1,9 +1,7 @@
 package com.tedu.model.manager;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Map;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -19,6 +17,9 @@ public class MapManager {
 	private static MapManager mapManager;
 
 	private int[][] floor;
+	
+	//道具闪烁时间
+	private int flashTime = -1;
 	
 	public MapManager() {
 		init();
@@ -59,7 +60,7 @@ public class MapManager {
 	public void drawFloor(Graphics g) {
 		int[][] floor = mapManager.getFloor();
 		Map<String, ImageIcon> map = ElementLoad.getElementLoad().getMap();
-		Random r = new Random();
+		flashTime = (flashTime+1)%4; //用于显示道具
 		/*
 		 * 因为加载和获取资源都是线程中进行的，先后无法判定，故刚开始的几次可能出现空指针异常，
 		 * 不过问题不大，因为此方法是不断调用的，过了前几次后就不会有异常了
@@ -77,13 +78,24 @@ public class MapManager {
 							32, 64,
 							null);
 					
-					if(floor[i][j]>=300) {
+					if(floor[i][j]>=300&&floor[i][j]<600) {
 						int num = floor[i][j]-300;
 						g.drawImage(map.get("box").getImage(),
 								0+j*32, (i-1)*32,
 								32+j*32, 32+i*32,
 								(num-1)*32, 0, 
 								(num)*32, 64,
+								null);
+						continue;
+					}
+					
+					if(floor[i][j]>600) {
+						String str = ElementLoad.getElementLoad().getToolsMap().get(String.valueOf(floor[i][j]-600));
+						g.drawImage(map.get(str).getImage(),
+								0+j*32, (i-1)*32,
+								32+j*32, 32+i*32,
+								0+flashTime*32, 0, 
+								32+flashTime*32, 64,
 								null);
 						continue;
 					}
