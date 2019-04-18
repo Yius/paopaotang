@@ -16,6 +16,7 @@ public abstract class Character extends SuperElement{
 	private int moveStep = 5; //²½³¤
 	private int moveX;
 	private int moveY;
+	private int stopTime = 0;
 	
 	public Character() {
 		super();
@@ -59,6 +60,13 @@ public abstract class Character extends SuperElement{
 	public void setMoveType(MoveType moveType) {
 		this.moveType = moveType;
 	}
+	public int getStopTime() {
+		return stopTime;
+	}
+
+	public void setStopTime(int stopTime) {
+		this.stopTime = stopTime;
+	}
 	
 	/*
 	 * Åö×²¼ì²â
@@ -78,11 +86,39 @@ public abstract class Character extends SuperElement{
 	
 	public void move(){
 		switch(moveType){
-		case top:setY(getY()-moveStep);moveY=3;break;
-		case left:setX(getX()-moveStep);moveY=1;break;
-		case right:setX(getX()+moveStep);moveY=2;break;
-		case down:setY(getY()+moveStep);moveY=0;break;
-		case stop:moveX=-2;break;
+		case top:
+			if(getStopTime()==0) 
+				setY(getY()-moveStep);
+			else
+				setStopTime(getStopTime()-1);
+			moveY=3;
+			break;
+		case left:
+			if(getStopTime()==0)
+				setX(getX()-moveStep);
+			else
+				setStopTime(getStopTime()-1);
+			moveY=1;
+			break;
+		case right:
+			if(getStopTime()==0)
+				setX(getX()+moveStep);
+			else
+				setStopTime(getStopTime()-1);
+			moveY=2;
+			break;
+		case down:
+			if(getStopTime()==0)
+				setY(getY()+moveStep);
+			else
+				setStopTime(getStopTime()-1);
+			moveY=0;
+			break;
+		case stop:
+			if(getStopTime()!=0)
+				setStopTime(getStopTime()-1);
+			moveX = -2;
+			break;
 		}
 	}
 	

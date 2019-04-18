@@ -1,6 +1,7 @@
 package com.tedu.model.vo;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -39,8 +40,9 @@ public class Box extends SuperElement{
 	public void destroy() {
 		if(!isVisible()) {
 			int[][] floor = ElementLoad.getElementLoad().getFloor();
-			if(Math.random()< 1/3.0||true) {
-				floor[getY()/32][getX()/32] = /*r.nextInt(8) + */602; 
+			Random r = new Random();
+			if(Math.random()< 1/3.0) {
+				floor[getY()/32][getX()/32] = r.nextInt(8) + 601/*r.nextInt(2)+607*/; 
 				//TODO 注意下面这个方法尚不完善
 				ElementFactory.createTool(floor[getY()/32][getX()/32], getY()/32,getX()/32);
 			}else {

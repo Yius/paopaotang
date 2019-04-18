@@ -76,6 +76,12 @@ public class GameThread extends Thread{
 		List<SuperElement> boomList = ElementManager.getManager().getElementList("boom");
 		List<SuperElement> bubbleToolList = ElementManager.getManager().getElementList("bubbleTool");
 		List<SuperElement> buleMedicineList = ElementManager.getManager().getElementList("buleMedicine");
+		List<SuperElement> purpleMedicineList = ElementManager.getManager().getElementList("purpleMedicine");
+		List<SuperElement> purpleGhostList = ElementManager.getManager().getElementList("purpleGhost");
+		List<SuperElement> redGhostList = ElementManager.getManager().getElementList("redGhost");
+		List<SuperElement> teleControlList = ElementManager.getManager().getElementList("teleControl");
+		List<SuperElement> mineList = ElementManager.getManager().getElementList("mine");
+		List<SuperElement> superCardList = ElementManager.getManager().getElementList("superCard");
 		pkWithRoadBlock(playerOneList,treeList);//路障
 		pkWithRoadBlock(playerTwoList, treeList);
 //		pkWithRoadBlock(playerOneList, bubbleList);
@@ -88,6 +94,18 @@ public class GameThread extends Thread{
 		getTheTool(playerTwoList, bubbleToolList);
 		getTheTool(playerOneList,buleMedicineList);
 		getTheTool(playerTwoList,buleMedicineList);
+		getTheTool(playerOneList,purpleMedicineList);
+		getTheTool(playerTwoList,purpleMedicineList);
+		getTheTool(playerOneList, purpleGhostList);
+		getTheTool(playerTwoList, purpleGhostList);
+		getTheTool(playerOneList, redGhostList);
+		getTheTool(playerTwoList, redGhostList);
+		getTheTool(playerOneList,teleControlList);
+		getTheTool(playerTwoList, teleControlList);
+		getTheTool(playerOneList,mineList);
+		getTheTool(playerTwoList, mineList);
+		getTheTool(playerOneList,superCardList);
+		getTheTool(playerTwoList, superCardList);
 		listPK(boomList,playerOneList);
 		listPK(boomList,playerTwoList);
 		listPK(boomList,boxList);
@@ -108,7 +126,17 @@ public class GameThread extends Thread{
 				 */
 				if(boom.gamePK(otherThings.get(j))){	
 					//根据其自身的能否摧毁属性决定是否将其设置为不可见
-					otherThings.get(j).setVisible(!otherThings.get(j).isCanDestroy());
+					if(otherThings.get(j) instanceof Player) {
+						Player player = (Player) otherThings.get(j);
+						if(player.getCurrentSuperCardNums()>0) {
+							player.setCurrentSuperCardNums(player.getCurrentSuperCardNums()-1);
+							player.setInvincibleTime(50);
+						}else {
+							player.setVisible(false);
+						}
+					}else {
+						otherThings.get(j).setVisible(!otherThings.get(j).isCanDestroy());
+					}
 				}
 			}
 		}

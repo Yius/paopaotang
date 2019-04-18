@@ -33,22 +33,35 @@ public class GameListener implements KeyListener{
 		switch(e.getKeyCode()){
 		case 37:
 			if(player != null) {
-				player.setMoveType(MoveType.left);
+				if(!player.isReversal())
+					player.setMoveType(MoveType.left);
+				else
+					player.setMoveType(MoveType.right);
 			}
 			break;
 		case 38:
 			if(player != null) {
-				player.setMoveType(MoveType.top);
+				if(!player.isReversal())
+					player.setMoveType(MoveType.top);
+				else
+					player.setMoveType(MoveType.down);
+					
 			}
 			break;
 		case 39:
 			if(player != null) {
-				player.setMoveType(MoveType.right);
+				if(!player.isReversal())
+					player.setMoveType(MoveType.right);
+				else
+					player.setMoveType(MoveType.left);
 			}
 			break;
 		case 40:
 			if(player != null) {
-				player.setMoveType(MoveType.down);
+				if(!player.isReversal())
+					player.setMoveType(MoveType.down);
+				else
+					player.setMoveType(MoveType.top);
 			}
 			break;
 		//回车
@@ -63,28 +76,40 @@ public class GameListener implements KeyListener{
 				player2.setPk(true);
 			}
 			break;
-		//a
+			//a
 		case 65:
 			if(player2 != null) {
-				player2.setMoveType(MoveType.left);
+				if(!player2.isReversal())
+					player2.setMoveType(MoveType.left);
+				else
+					player2.setMoveType(MoveType.right);
 			}
 			break;
 		//s
 		case 83:
 			if(player2 != null) {
-				player2.setMoveType(MoveType.down);
+				if(!player2.isReversal())
+					player2.setMoveType(MoveType.down);
+				else
+					player2.setMoveType(MoveType.top);
 			}
 			break;
 		//d
 		case 68:
 			if(player2 != null) {
-				player2.setMoveType(MoveType.right);
+				if(!player2.isReversal())
+					player2.setMoveType(MoveType.right);
+				else
+					player2.setMoveType(MoveType.left);
 			}
 			break;
 		//w
 		case 87:
 			if(player2 != null) {
-				player2.setMoveType(MoveType.top);
+				if(!player2.isReversal())
+					player2.setMoveType(MoveType.top);
+				else
+					player2.setMoveType(MoveType.down);
 			}
 			break;
 		}
@@ -106,20 +131,48 @@ public class GameListener implements KeyListener{
 		}
 		switch(e.getKeyCode()){
 		case 37:
-			if(player != null && player.getMoveType() == MoveType.left)
-				player.setMoveType(MoveType.stop);
+			if(player != null) {
+				if(player.isReversal()) {
+					if(player.getMoveType() == MoveType.right)
+						player.setMoveType(MoveType.stop);
+				}else {
+					if(player.getMoveType() == MoveType.left)
+						player.setMoveType(MoveType.stop);
+				}
+			}
 			break;
 		case 38:
-			if(player != null && player.getMoveType() == MoveType.top)
-				player.setMoveType(MoveType.stop);
+			if(player != null) {
+				if(player.isReversal()) {
+					if(player.getMoveType() == MoveType.down)
+						player.setMoveType(MoveType.stop);
+				}else {
+					if(player.getMoveType() == MoveType.top)
+						player.setMoveType(MoveType.stop);
+				}
+			}
 			break;
 		case 39:
-			if(player != null && player.getMoveType() == MoveType.right)
-				player.setMoveType(MoveType.stop);
+			if(player != null) {
+				if(player.isReversal()) {
+					if(player.getMoveType() == MoveType.left)
+						player.setMoveType(MoveType.stop);
+				}else {
+					if(player.getMoveType() == MoveType.right)
+						player.setMoveType(MoveType.stop);
+				}
+			}
 			break;
 		case 40:
-			if(player != null && player.getMoveType() == MoveType.down)
-				player.setMoveType(MoveType.stop);
+			if(player != null) {
+				if(player.isReversal()) {
+					if(player.getMoveType() == MoveType.top)
+						player.setMoveType(MoveType.stop);
+				}else {
+					if(player.getMoveType() == MoveType.down)
+						player.setMoveType(MoveType.stop);
+				}
+			}
 			break;
 		//回车
 		case 10:
@@ -135,26 +188,50 @@ public class GameListener implements KeyListener{
 			break;
 		//a
 		case 65:
-			if(player2 != null && player2.getMoveType() == MoveType.left) {
-				player2.setMoveType(MoveType.stop);
+			if(player2 != null) {
+				if(player2.isReversal()) {
+					if(player2.getMoveType() == MoveType.right)
+						player2.setMoveType(MoveType.stop);
+				}else {
+					if(player2.getMoveType() == MoveType.left)
+						player2.setMoveType(MoveType.stop);
+				}
 			}
 			break;
 		//s
 		case 83:
-			if(player2 != null &&player2.getMoveType() == MoveType.down) {
-				player2.setMoveType(MoveType.stop);
+			if(player2 != null) {
+				if(player2.isReversal()) {
+					if(player2.getMoveType() == MoveType.top)
+						player2.setMoveType(MoveType.stop);
+				}else {
+					if(player2.getMoveType() == MoveType.down)
+						player2.setMoveType(MoveType.stop);
+				}
 			}
 			break;
 		//d
 		case 68:
-			if(player2 != null &&player2.getMoveType() == MoveType.right) {
-				player2.setMoveType(MoveType.stop);
+			if(player2 != null) {
+				if(player2.isReversal()) {
+					if(player2.getMoveType() == MoveType.left)
+						player2.setMoveType(MoveType.stop);
+				}else {
+					if(player2.getMoveType() == MoveType.right)
+						player2.setMoveType(MoveType.stop);
+				}
 			}
 			break;
 		//w
 		case 87:
-			if(player2 != null &&player2.getMoveType() == MoveType.top) {
-				player2.setMoveType(MoveType.stop);
+			if(player2 != null) {
+				if(player2.isReversal()) {
+					if(player2.getMoveType() == MoveType.down)
+						player2.setMoveType(MoveType.stop);
+				}else {
+					if(player2.getMoveType() == MoveType.top)
+						player2.setMoveType(MoveType.stop);
+				}
 			}
 			break;
 		}

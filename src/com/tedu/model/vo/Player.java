@@ -30,6 +30,15 @@ public class Player extends Character{
 	
 	//蓝药瓶相关
 	private int boomScale = 0 ; //当前泡泡的威力 , 默认最大上限为4
+	//鬼头相关
+	private boolean isReversal;//判断是否反向
+	//遥控器相关
+//	private int stopTime =0;//写到Character类里，因为要用到move()
+	//超人卡相关
+	private int maxSuperCardNums = 5; //超人卡最多持有数
+	private int currentSuperCardNums;//当前超人卡持有数
+	//无敌状态计时(在持有超人卡情况下被泡泡炸到时有50帧的免疫伤害状态)
+	private int invincibleTime = 0;
 	
 //	private StopMove stopMove;
 //	当前玩家名称。。。。
@@ -125,6 +134,40 @@ public class Player extends Character{
 	public void setPk(boolean pk) {
 		this.pk = pk;
 	}
+	
+	public boolean isReversal() {
+		return isReversal;
+	}
+
+	public void setReversal(boolean isReversal) {
+		this.isReversal = isReversal;
+	}
+
+	public int getMaxSuperCardNums() {
+		return maxSuperCardNums;
+	}
+
+	public void setMaxSuperCardNums(int maxSuperCardNums) {
+		this.maxSuperCardNums = maxSuperCardNums;
+	}
+
+	public int getCurrentSuperCardNums() {
+		return currentSuperCardNums;
+	}
+
+	public void setCurrentSuperCardNums(int currentSuperCardNums) {
+		this.currentSuperCardNums = currentSuperCardNums;
+	}
+	
+
+	public int getInvincibleTime() {
+		return invincibleTime;
+	}
+
+	public void setInvincibleTime(int invincibleTime) {
+		this.invincibleTime = invincibleTime;
+	}
+
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -140,6 +183,7 @@ public class Player extends Character{
 		super.move();
 		time = (time+1)%1000000000;
 		countTime();
+		setInvincible();
 	}
 	
 	/*
@@ -165,11 +209,19 @@ public class Player extends Character{
 			}
 		}	
 	}
+	public void setInvincible() {
+		if(this.getInvincibleTime()>0) {
+			this.setInvincibleTime(this.getInvincibleTime()-1);
+			this.setVisible(true);
+		}
+	}
 	
 	
 	public boolean getTool(SuperElement se) {
 		Rectangle r1=new Rectangle(getX(), getY(), getW(), getH());
-		Rectangle r2=new Rectangle(se.getX(), se.getY(), se.getW(), se.getH());
+		Rectangle r2=new Rectangle(se.getX()+6, se.getY()+6, se.getW()-12, se.getH()-12);
+		Player player = null;
+		Player player2 = null;
 		if(r1.intersects(r2)){
 			//泡泡道具，其他道具也应该在这写
 			if(se instanceof BubbleTool) {
@@ -177,10 +229,83 @@ public class Player extends Character{
 					++maxBubbleNums;
 					++currentBubbleNums;
 				}
-			}
-			if(se instanceof BuleMedicine) {
+			}else if(se instanceof BuleMedicine) {
 				if(boomScale < 4) {
 					++boomScale;
+				}
+			}else if(se instanceof PurpleMedicine){
+				if(isReversal()) {
+					setReversal(false);
+				}
+			}else if(se instanceof PurpleGhost) {
+				if(isReversal())
+					setReversal(false);
+				else
+					setReversal(true);
+			}else if(se instanceof RedGhost) {
+				List<?> list = ElementManager.getManager().getElementList("playerOne");
+				List<?> list2 = ElementManager.getManager().getElementList("playerTwo");
+				if(list.size()!=0)
+					player = (Player) list.get(0);
+				if(list2.size() != 0)
+					player2 = (Player) list2.get(0);
+				if(this.equals(player)) {
+					if(player2!=null) {
+						if(player2.isReversal())
+							player2.setReversal(false);
+						else
+							player2.setReversal(true);
+					}
+				}else if(this.equals(player2)) {
+					if(player!=null) {
+						if(player.isReversal())
+							player.setReversal(false);
+						else
+							player.setReversal(true);
+					}
+				}
+			}else if(se instanceof TeleControl) {
+				List<?> list = ElementManager.getManager().getElementList("playerOne");
+				List<?> list2 = ElementManager.getManager().getElementList("playerTwo");
+				if(list.size()!=0)
+					player = (Player) list.get(0);
+				if(list2.size() != 0)
+					player2 = (Player) list2.get(0);
+				if(this.equals(player)) {
+					if(player2!=null) {
+						player2.setStopTime(player2.getStopTime()+50);
+					}
+				}else if(this.equals(player2)) {
+					if(player!=null) {
+						player.setStopTime(player.getStopTime()+50);
+					}
+				}
+			}else if(se instanceof Mine) {
+				List<?> list = ElementManager.getManager().getElementList("playerOne");
+				List<?> list2 = ElementManager.getManager().getElementList("playerTwo");
+				if(list.size()!=0)
+					player = (Player) list.get(0);
+				if(list2.size() != 0)
+					player2 = (Player) list2.get(0);
+				if(this.equals(player)) {
+					if(player2!=null) {
+						if(player2.getCurrentSuperCardNums()>0) {
+							player2.setCurrentSuperCardNums(player2.getCurrentSuperCardNums()-1);
+						}else {
+							player2.setVisible(false);
+						}
+					}
+				}else if(this.equals(player2)) {
+					if(player.getCurrentSuperCardNums()>0) {
+						player.setCurrentSuperCardNums(player.getCurrentSuperCardNums()-1);
+						player.setInvincibleTime(50);
+					}else {
+						player.setVisible(false);
+					}
+				}
+			}else if(se instanceof SuperCard) {
+				if(getCurrentSuperCardNums()<getMaxSuperCardNums()) {
+					setCurrentSuperCardNums(getCurrentSuperCardNums()+1);
 				}
 			}
 			return true;

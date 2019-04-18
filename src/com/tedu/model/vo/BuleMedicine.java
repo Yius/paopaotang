@@ -8,7 +8,7 @@ public class BuleMedicine extends SuperElement{
 
 	private int movex;
 	private int time = 0;
-	private int deadTime = 60; //道具消失时间
+	private int deadTime = 700; //道具消失时间
 	
 	public static BuleMedicine createBuleMedicine(int row,int col) {
 		return new BuleMedicine(col*32,row*32,32,32);
