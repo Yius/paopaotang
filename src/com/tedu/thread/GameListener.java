@@ -70,8 +70,8 @@ public class GameListener implements KeyListener{
 				player.setPk(true);
 			}
 			break;
-		//¿Õ¸ñ
-		case 32:
+		//b
+		case 66:
 			if(player2 != null) {
 				player2.setPk(true);
 			}
@@ -180,8 +180,8 @@ public class GameListener implements KeyListener{
 				player.setPk(false);
 			}
 			break;
-		//¿Õ¸ñ
-		case 32:
+		//b
+		case 66:
 			if(player2 != null) {
 				player2.setPk(false);
 			}

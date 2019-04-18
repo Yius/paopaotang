@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 
 import com.tedu.model.load.ElementLoad;
 import com.tedu.model.manager.ElementManager;
+import com.tedu.model.manager.MoveType;
 
 public class Player extends Character{
 	
@@ -236,12 +237,16 @@ public class Player extends Character{
 			}else if(se instanceof PurpleMedicine){
 				if(isReversal()) {
 					setReversal(false);
+					if(getMoveType().ordinal()<4)
+						setMoveType(MoveType.values()[(getMoveType().ordinal()+2)%4]);
 				}
 			}else if(se instanceof PurpleGhost) {
 				if(isReversal())
 					setReversal(false);
 				else
 					setReversal(true);
+				if(getMoveType().ordinal()<4)
+					setMoveType(MoveType.values()[(getMoveType().ordinal()+2)%4]);
 			}else if(se instanceof RedGhost) {
 				List<?> list = ElementManager.getManager().getElementList("playerOne");
 				List<?> list2 = ElementManager.getManager().getElementList("playerTwo");
@@ -255,6 +260,8 @@ public class Player extends Character{
 							player2.setReversal(false);
 						else
 							player2.setReversal(true);
+						if(player2.getMoveType().ordinal()<4)
+							player2.setMoveType(MoveType.values()[(player2.getMoveType().ordinal()+2)%4]);
 					}
 				}else if(this.equals(player2)) {
 					if(player!=null) {
@@ -262,6 +269,8 @@ public class Player extends Character{
 							player.setReversal(false);
 						else
 							player.setReversal(true);
+						if(player.getMoveType().ordinal()<4)
+							player.setMoveType(MoveType.values()[(player.getMoveType().ordinal()+2)%4]);
 					}
 				}
 			}else if(se instanceof TeleControl) {
