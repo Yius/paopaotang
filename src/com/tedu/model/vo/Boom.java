@@ -116,7 +116,8 @@ public class Boom extends SuperElement{
 	
 	@Override
 	public void destroy() {
-		if(time==20) {
+		//爆炸持续时间
+		if(time==5) {
 			time = 0;
 			setVisible(false);
 		}
@@ -126,8 +127,9 @@ public class Boom extends SuperElement{
 	public boolean gamePK(SuperElement se) {
 		if(isVisible()){	
 			Rectangle r3 = new Rectangle(se.getX(),se.getY(),se.getW(),se.getH());
-			Rectangle r1 = new Rectangle(getX()-27-scale*32,getY(),getW()+52+scale*2*32,getH());
-			Rectangle r2 = new Rectangle(getX(),getY()-25-scale*32,getW(),getH()+50+scale*2*32);
+			//这里减小了范围
+			Rectangle r1 = new Rectangle(getX()-27-scale*32+2,getY()+2,getW()+52+scale*2*32-4,getH()-4);
+			Rectangle r2 = new Rectangle(getX()+2,getY()-25-scale*32+2,getW()-4,getH()+50+scale*2*32-4);
 			return r1.intersects(r3)||r2.intersects(r3);
 		}
 		return false;

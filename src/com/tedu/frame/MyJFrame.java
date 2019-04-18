@@ -1,7 +1,5 @@
 package com.tedu.frame;
 
-import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -31,7 +29,7 @@ public class MyJFrame extends JFrame{
 //	初始化方法:  构造方法无法被继承，而init方法可以(init方法可以被重写)
 	public void init(){
 		this.setTitle("game");
-		this.setSize(655, 680);//设置大小
+		this.setSize(657, 675);//设置大小
 		this.setResizable(false);//设置窗体不可以修改大小
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//设置关闭状态
 		this.setLocationRelativeTo(null);//居中

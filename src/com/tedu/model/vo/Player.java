@@ -71,7 +71,7 @@ public class Player extends Character{
 	
 	@Override
 	public void showElement(Graphics g) {
-		g.drawRect(getX(), getY(), getW(), getH());
+//		g.drawRect(getX(), getY(), getW(), getH());
 		g.drawImage(img.getImage(), 
 			getX(), getY(),                  //屏幕左上角坐标
 			getX()+getW(), getY()+getH(),    //屏幕右下角坐标
@@ -174,7 +174,7 @@ public class Player extends Character{
 		if(!isVisible()){
 			List<SuperElement> list =
 					ElementManager.getManager().getElementList("died");
-			list.add(Died.createDied(getX(), getY(), ""));
+			list.add(Died.createDied(getX(), getY()));
 		}
 	}
 	
@@ -219,7 +219,7 @@ public class Player extends Character{
 	
 	public boolean getTool(SuperElement se) {
 		Rectangle r1=new Rectangle(getX(), getY(), getW(), getH());
-		Rectangle r2=new Rectangle(se.getX()+6, se.getY()+6, se.getW()-12, se.getH()-12);
+		Rectangle r2=new Rectangle(se.getX(), se.getY(), se.getW(), se.getH());
 		Player player = null;
 		Player player2 = null;
 		if(r1.intersects(r2)){
@@ -273,16 +273,17 @@ public class Player extends Character{
 					player2 = (Player) list2.get(0);
 				if(this.equals(player)) {
 					if(player2!=null) {
-						player2.setStopTime(player2.getStopTime()+50);
+						//60为锁定时间
+						player2.setStopTime(player2.getStopTime()+60);
 					}
 				}else if(this.equals(player2)) {
 					if(player!=null) {
-						player.setStopTime(player.getStopTime()+50);
+						player.setStopTime(player.getStopTime()+60);
 					}
 				}
 			}else if(se instanceof Mine) {
 				List<?> list = ElementManager.getManager().getElementList("playerOne");
-				List<?> list2 = ElementManager.getManager().getElementList("playerTwo");
+				List<?> list2 = ElementManager.getManager().getElementList("playerTwo"); 
 				if(list.size()!=0)
 					player = (Player) list.get(0);
 				if(list2.size() != 0)

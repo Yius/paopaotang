@@ -72,7 +72,7 @@ public class GameThread extends Thread{
 		List<SuperElement> treeList = ElementManager.getManager().getElementList("tree");
 		List<SuperElement> houseList = ElementManager.getManager().getElementList("house");
 		List<SuperElement> boxList = ElementManager.getManager().getElementList("box");
-		List<SuperElement> bubbleList = ElementManager.getManager().getElementList("bubble");
+		List<SuperElement> bushList = ElementManager.getManager().getElementList("bush");
 		List<SuperElement> boomList = ElementManager.getManager().getElementList("boom");
 		List<SuperElement> bubbleToolList = ElementManager.getManager().getElementList("bubbleTool");
 		List<SuperElement> buleMedicineList = ElementManager.getManager().getElementList("buleMedicine");
@@ -84,12 +84,12 @@ public class GameThread extends Thread{
 		List<SuperElement> superCardList = ElementManager.getManager().getElementList("superCard");
 		pkWithRoadBlock(playerOneList,treeList);//路障
 		pkWithRoadBlock(playerTwoList, treeList);
-//		pkWithRoadBlock(playerOneList, bubbleList);
-//		pkWithRoadBlock(playerTwoList, bubbleList);
 		pkWithRoadBlock(playerOneList,houseList);
 		pkWithRoadBlock(playerTwoList, houseList);
 		pkWithRoadBlock(playerOneList,boxList);
 		pkWithRoadBlock(playerTwoList, boxList);
+		pkWithRoadBlock(playerOneList, bushList);
+		pkWithRoadBlock(playerTwoList, bushList);
 		getTheTool(playerOneList, bubbleToolList);
 		getTheTool(playerTwoList, bubbleToolList);
 		getTheTool(playerOneList,buleMedicineList);
@@ -109,8 +109,6 @@ public class GameThread extends Thread{
 		listPK(boomList,playerOneList);
 		listPK(boomList,playerTwoList);
 		listPK(boomList,boxList);
-//		listPK(boomList, bubbleToolList);
-//		可以举行比较
 	}
 	
 //	部分的代码 是可以重复使用的。

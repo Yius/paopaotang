@@ -26,11 +26,12 @@ public class ElementManager {
 		map.put("playerTwo", new ArrayList<>());
 		map.put("bubble", new ArrayList<>());
 		map.put("tree", new ArrayList<>());
-		map.put("apricot", new ArrayList<>());
+		map.put("bush", new ArrayList<>());
 		map.put("box",new ArrayList<>());
 		map.put("house",new ArrayList<>());
 		map.put("boom", new ArrayList<>());
 		map.put("died", new ArrayList<>());
+		map.put("bush", new ArrayList<>());
 		map.put("bubbleTool", new ArrayList<>());
 		map.put("buleMedicine", new ArrayList<>());
 		map.put("purpleMedicine", new ArrayList<>());

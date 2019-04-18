@@ -8,10 +8,10 @@ public class BubbleTool extends SuperElement{
 	
 	private int movex;
 	private int time = 0;
-	private int deadTime = 700; //道具消失时间
+	private int deadTime = 300; //道具消失时间
 	
 	public static BubbleTool createBubbleTool(int row,int col) {
-		return new BubbleTool(col*32,row*32,32,32);
+		return new BubbleTool(col*32+6,row*32+6,20,20);
 	}
 
 	public BubbleTool() {
@@ -27,7 +27,7 @@ public class BubbleTool extends SuperElement{
 
 	@Override
 	public void showElement(Graphics g) {	
-		g.drawRect(getX(), getY(), getW(), getH());
+//		g.drawRect(getX(), getY(), getW(), getH());
 	}
 
 	@Override

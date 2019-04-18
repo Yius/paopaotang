@@ -7,20 +7,20 @@ import com.tedu.model.load.ElementLoad;
 public class TeleControl extends SuperElement{
 	private int moveX;
 	private int time = 0;
-	private int deadTime = 700;
+	private int deadTime = 300;
 	public TeleControl(int x, int y, int w, int h) {
 		super(x,y,w,h);
 		setRow(y/32);
 		setCol(x/32);
 	}
 	
-	public static TeleControl createTeleCobtrol(int row, int col) {
-		return new TeleControl(col*32, row*32, 32,32);
+	public static TeleControl createTeleControl(int row, int col) {
+		return new TeleControl(col*32+6, row*32+6, 20,20);
 	}
 	@Override
 	public void showElement(Graphics g) {
 		// TODO 自动生成的方法存根
-		g.drawRect(getX()+6, getY()+6, getW()-12, getH()-12);
+//		g.drawRect(getX(), getY(), getW(), getH());
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class TeleControl extends SuperElement{
 	private void diedTimeCountDown() {
 		++time;
 		if(time == deadTime) {
-			time = 0;//防止循环太快使得Bubble未被移除出list之前time超出int范围
+			time = 0;//防止循环太快使得未被移除出list之前time超出int范围
 			setVisible(false);
 		}		
 	}

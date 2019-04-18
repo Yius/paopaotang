@@ -7,7 +7,7 @@ import com.tedu.model.load.ElementLoad;
 public class Mine extends SuperElement{
 	private int moveX;
 	private int time = 0;
-	private int deadTime = 700;
+	private int deadTime = 300;
 	
 	public Mine(int x, int y, int w, int h) {
 		super(x, y, w, h);
@@ -16,13 +16,13 @@ public class Mine extends SuperElement{
 	}
 	
 	public static Mine createMine(int row, int col) {
-		return new Mine(col*32, row*32,32,32);
+		return new Mine(col*32+6, row*32+6,20,20);
 	}
 
 	@Override
 	public void showElement(Graphics g) {
 		// TODO 自动生成的方法存根
-		g.drawRect(getX()+6, getY()+6, getW()-12, getH()-12);
+//		g.drawRect(getX(), getY(), getW(), getH());
 	}
 
 	@Override

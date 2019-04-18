@@ -8,6 +8,7 @@ import com.tedu.model.load.ElementLoad;
 import com.tedu.model.vo.Box;
 import com.tedu.model.vo.BubbleTool;
 import com.tedu.model.vo.BuleMedicine;
+import com.tedu.model.vo.Bush;
 import com.tedu.model.vo.House;
 import com.tedu.model.vo.Mine;
 import com.tedu.model.vo.Player;
@@ -85,6 +86,7 @@ public class ElementFactory {
 		List<SuperElement> treeList = new ArrayList<>();
 		List<SuperElement> boxList = new ArrayList<>();
 		List<SuperElement> houseList = new ArrayList<>();
+		List<SuperElement> bushList = new ArrayList<>();
 		int[][] floor = MapManager.getMapManager().getFloor();
 		for(int i=0;i<floor.length;++i) {
 			for(int j=0;j<floor[0].length;++j) {
@@ -94,6 +96,7 @@ public class ElementFactory {
 				}
 				switch(floor[i][j]){
 				case 5:treeList.add(Tree.createTree(i,j));break;
+				case 4:bushList.add(Bush.createBush(i,j));break;
 				case 1:
 				case 2:houseList.add(House.createHouse(i,j));break;
 				}
@@ -102,11 +105,9 @@ public class ElementFactory {
 		result.put("tree", treeList);
 		result.put("box", boxList);
 		result.put("house", houseList);
+		result.put("bush", bushList);
 	}
 	
-	/*
-	 *创建物品方法，尚不完善
-	 */
 	//TODO
 	public static void createTool(int type, int row, int col) {
 		switch(type) {
@@ -115,7 +116,7 @@ public class ElementFactory {
 		case 603:ElementManager.getManager().getMap().get("purpleMedicine").add(PurpleMedicine.createPurpleMedicine(row,col));break;
 		case 604:ElementManager.getManager().getMap().get("purpleGhost").add(PurpleGhost.createPurpleGhost(row, col));break;
 		case 605:ElementManager.getManager().getMap().get("redGhost").add(RedGhost.createRedGhost(row, col));break;
-		case 606:ElementManager.getManager().getMap().get("teleControl").add(TeleControl.createTeleCobtrol(row, col));break;
+		case 606:ElementManager.getManager().getMap().get("teleControl").add(TeleControl.createTeleControl(row, col));break;
 		case 607:ElementManager.getManager().getMap().get("mine").add(Mine.createMine(row, col));break;
 		case 608:ElementManager.getManager().getMap().get("superCard").add(SuperCard.createSuperCard(row, col));break;
 		}

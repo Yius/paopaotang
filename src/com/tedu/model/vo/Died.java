@@ -18,7 +18,7 @@ public class Died extends SuperElement{
 		this.img=img;
 	}
 	
-	public static Died createDied(int x,int y,String str){
+	public static Died createDied(int x,int y){
 		ImageIcon img=new ImageIcon("img/character/died.png");
 		return new Died(x,y,32,32,img);
 	}

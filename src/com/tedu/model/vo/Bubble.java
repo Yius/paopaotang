@@ -44,7 +44,7 @@ public class Bubble extends SuperElement{
 					32*(movex+1),45,    //图片右下角坐标  120,60
 //					moveX, 0,    //图片左上角坐标        60 ,0
 //					moveX+60, 60,	
-					null);
+					null);				
 	}
 	@Override
 	public void move() {

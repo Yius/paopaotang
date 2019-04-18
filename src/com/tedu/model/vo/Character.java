@@ -87,29 +87,49 @@ public abstract class Character extends SuperElement{
 	public void move(){
 		switch(moveType){
 		case top:
-			if(getStopTime()==0) 
-				setY(getY()-moveStep);
+			if(getStopTime()==0) {
+				if(getY()-moveStep>0) {
+					setY(getY()-moveStep);
+				}else {
+					setY(0);
+				}
+			}
 			else
 				setStopTime(getStopTime()-1);
 			moveY=3;
 			break;
 		case left:
-			if(getStopTime()==0)
-				setX(getX()-moveStep);
+			if(getStopTime()==0) {
+				if(getX()-moveStep>0) {
+					setX(getX()-moveStep);	
+				}else {
+					setX(0);
+				}
+			}
 			else
 				setStopTime(getStopTime()-1);
 			moveY=1;
 			break;
 		case right:
-			if(getStopTime()==0)
-				setX(getX()+moveStep);
+			if(getStopTime()==0) {
+				if(getX()+moveStep<605) {
+					setX(getX()+moveStep);	
+				}else {
+					setX(605);
+				}
+			}
 			else
 				setStopTime(getStopTime()-1);
 			moveY=2;
 			break;
 		case down:
-			if(getStopTime()==0)
-				setY(getY()+moveStep);
+			if(getStopTime()==0) {
+				if(getY()+moveStep<602) {
+					setY(getY()+moveStep);	
+				}else {
+					setY(602);
+				}
+			}
 			else
 				setStopTime(getStopTime()-1);
 			moveY=0;

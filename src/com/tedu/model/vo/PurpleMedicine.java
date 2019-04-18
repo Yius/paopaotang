@@ -7,7 +7,7 @@ import com.tedu.model.load.ElementLoad;
 public class PurpleMedicine extends SuperElement{
 	private int moveX;
 	private int time = 0;
-	private int deadTime = 700;
+	private int deadTime = 300;
 	 
 
 	public PurpleMedicine(int x, int y, int w, int h) {
@@ -16,12 +16,12 @@ public class PurpleMedicine extends SuperElement{
 		setCol(x/32);
 	}
 	public static PurpleMedicine createPurpleMedicine(int row, int col) {
-		return new PurpleMedicine(col*32,row*32,32,32);
+		return new PurpleMedicine(col*32+6,row*32+6,20,20);
 	}
 
 	@Override
 	public void showElement(Graphics g) {
-		g.drawRect(getX()+6, getY()+6, getW()-12, getH()-12);
+//		g.drawRect(getX(), getY(), getW(), getH());
 	}
 
 	@Override

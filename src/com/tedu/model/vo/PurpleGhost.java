@@ -8,7 +8,7 @@ import com.tedu.model.load.ElementLoad;
 public class PurpleGhost extends SuperElement{
 	private int moveX;
 	private int time = 0;
-	private int deadTime = 700; //道具消失时间
+	private int deadTime = 300; //道具消失时间
 	
 	public PurpleGhost(int x, int y, int w, int h) {
 		super(x, y, w, h);
@@ -16,13 +16,13 @@ public class PurpleGhost extends SuperElement{
 		setCol(x/32);
 	}
 	public static PurpleGhost createPurpleGhost(int row, int col) {
-		return new PurpleGhost(col*32,row*32,32,32);
+		return new PurpleGhost(col*32+6,row*32+6,20,20);
 	}
 
 	@Override
 	public void showElement(Graphics g) {
 		// TODO 自动生成的方法存根
-		g.drawRect(getX()+6,getY()+6, getW()-12, getH()-12);
+//		g.drawRect(getX(),getY(), getW(), getH());
 	}
 	private void diedTimeCountDown() {
 		++time;
