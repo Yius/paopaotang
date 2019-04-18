@@ -5,6 +5,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.JFrame;
+
+import com.tedu.frame.MyJFrame;
+import com.tedu.frame.OverJFrame;
 import com.tedu.model.manager.ElementManager;
 import com.tedu.model.manager.MapManager;
 import com.tedu.model.vo.Boom;
@@ -39,7 +43,10 @@ public class GameThread extends Thread{
 			Map<String,List<SuperElement>> map=
 					ElementManager.getManager().getMap();
 			Set<String> set=map.keySet();
-			
+			List<SuperElement> playone =
+					ElementManager.getManager().getElementList("playerOne");
+			List<SuperElement> playtwo =
+					ElementManager.getManager().getElementList("playerTwo");
 				
 			for(String key:set){//迭代器在遍历的过程中，迭代器内的元素不可以 增加或者删除
 				List<SuperElement> list=map.get(key);
@@ -48,6 +55,21 @@ public class GameThread extends Thread{
 					if(!list.get(i).isVisible()){
 						list.remove(i);
 					}
+					
+					if(playone.isEmpty()&&playtwo.isEmpty()) {
+			        	try {
+							sleep(1000);
+							overGame();
+							JFrame jf=MyJFrame.getJFrame();
+				        	jf.dispose();
+				    		OverJFrame ojf=new OverJFrame();
+				    		ojf.setVisible(true);
+				        	return;
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			        }
 				}
 				
 			}
@@ -183,7 +205,17 @@ public class GameThread extends Thread{
 	
 	private void overGame() {
 		// TODO Auto-generated method stub
-		
+		Map<String,List<SuperElement>> map=
+				ElementManager.getManager().getMap();
+		Set<String> set=map.keySet();
+			
+		for(String key:set){//迭代器在遍历的过程中，迭代器内的元素不可以 增加或者删除
+			List<SuperElement> list=map.get(key);
+			for(int i=list.size()-1;i>=0;--i){
+					//System.out.println(key+i+"  "+list.get(i));
+					list.remove(i);
+				}
+		}
 	}
 //	控制进度,但是，作为 控制，请不要接触 load
 	private void loadElement() {

@@ -1,40 +1,54 @@
 package com.tedu.frame;
 
-import java.awt.Color;
+
 import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import com.tedu.model.load.ElementLoad;
 import com.tedu.model.manager.ElementManager;
 import com.tedu.model.manager.MapManager;
+import com.tedu.model.vo.Player;
 import com.tedu.model.vo.SuperElement;
 
 public class MyJPanel extends JPanel implements Runnable{
-	
 	/**
 	 * 1.这个paint是由 底层自动调用的，我们重写父类的方法
 	 * 2.这个方法只会执行1次，如果不持续调用，就不会持续执行
 	 * 
 	 * 帧: 50-100毫秒每帧    20-10帧/秒
 	 */
+	List<SuperElement> died =
+			ElementManager.getManager().getElementList("died");
+	List<SuperElement> playone =
+			ElementManager.getManager().getElementList("playOne");
+	List<SuperElement> playtwo =
+			ElementManager.getManager().getElementList("playerTwo");
+	OverJFrame ojf=new OverJFrame();
+	
 	  //作用是 用来显示
 	public void paint(Graphics g) {
-		
 		super.paint(g);
-//		this.setBackground(Color.black);
 //		给一个判定值  也可以使用枚举
 //		1.前动画
 //		2.gameRuntime
-		MapManager.getMapManager().drawFloor(g);
-		gameRunTime(g);//Graphics 画笔
+        MapManager.getMapManager().drawFloor(g);
+        gameRunTime(g);//Graphics 画笔	
 //		3.衔接动画
-		
+        	
 	}
 
 	private void gameRunTime(Graphics g) {
@@ -63,6 +77,7 @@ public class MyJPanel extends JPanel implements Runnable{
 	 */
 	@Override
 	public void run(){
+	
 		while(true){//死循环:界面会不停止的刷新
 //			线程的休眠
 			try {
@@ -71,8 +86,8 @@ public class MyJPanel extends JPanel implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			this.repaint();//要求 面板再次刷新
+			
 		}
 	}
 	

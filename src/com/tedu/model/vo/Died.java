@@ -1,11 +1,15 @@
 package com.tedu.model.vo;
 
 import java.awt.Graphics;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import com.tedu.model.manager.ElementManager;
+
 public class Died extends SuperElement{
 	private ImageIcon img;
+	private int time=0;
 	
 
 	private int movex=0;
@@ -45,6 +49,21 @@ public class Died extends SuperElement{
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
+		time++;
+		if(time>30)                 //死亡后水圈停留的时间
+		{
+		setVisible(false);
+		List<SuperElement> playone =
+				ElementManager.getManager().getElementList("playerOne");
+		List<SuperElement> playtwo =
+				ElementManager.getManager().getElementList("playerTwo");
 		
+		if(playone.isEmpty()&&playtwo.size()!=0) {					//玩家一死后，把玩家二也清除
+			playtwo.remove(playtwo.size()-1);
+	    	}
+		else if(playtwo.isEmpty()&&playone.size()!=0) {					//玩家二死后，把玩家一也清除
+			playone.remove(playone.size()-1);
+	    	}
+		}
 	}
 }
